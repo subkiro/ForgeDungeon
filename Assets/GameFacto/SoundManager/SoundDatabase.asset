@@ -1,0 +1,242 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba41605ed603e34b82564108feb585b, type: 3}
+  m_Name: SoundDatabase
+  m_EditorClassIdentifier: 
+  AllSounds:
+  - ID: Default
+    UseList: 0
+    Vol: 1
+    m_ClipList:
+    - {fileID: 8300000, guid: 0bfec880b2c4e544993d125e2cb6bcdd, type: 3}
+    m_Clip: {fileID: 8300000, guid: 93e4aced413fd0a4596d4556a8be974a, type: 3}
+    Tag: 0
+  - ID: RoundWin
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 7917e34f6b81feb44994758cb16b79b2, type: 3}
+    Tag: 0
+  - ID: RoundLost
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: c36818d1fffcb9f4aa36015c13641a92, type: 3}
+    Tag: 0
+  - ID: WaveStart
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 69d795681660d684094bd8de99ad5662, type: 3}
+    Tag: 0
+  - ID: WaveWin
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: bb581c5e01c7a4c44b56c5f7ec6b6f99, type: 3}
+    Tag: 0
+  - ID: WaveLost
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 003fcf05b45ec464b8c949a79d64ed69, type: 3}
+    Tag: 0
+  - ID: TaskCollected
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 0d90dca50cf0d874b895ab7e9f1c2c79, type: 3}
+    Tag: 0
+  - ID: TaskCompleted
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 5c62bbadc95894b94945f72b25f26697, type: 3}
+    Tag: 0
+  - ID: Sweesh
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: b4acfa6115ea87f4ca154c317537bb7a, type: 3}
+    Tag: 0
+  - ID: Notification
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: a9aa35e91aa2fe2439675f98aa9fac68, type: 3}
+    Tag: 3
+  - ID: Coin
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 3b6b13141b03e254b8535e00de4e1d0d, type: 3}
+    Tag: 3
+  - ID: Chip
+    UseList: 0
+    Vol: 0.8
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 0d90dca50cf0d874b895ab7e9f1c2c79, type: 3}
+    Tag: 3
+  - ID: HardLevel
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 22c4a45e00deab44dbc98ee5f3056f97, type: 3}
+    Tag: 0
+  - ID: UnlockBooster
+    UseList: 0
+    Vol: 0.7
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 0bfec880b2c4e544993d125e2cb6bcdd, type: 3}
+    Tag: 2
+  - ID: ClaimBooster
+    UseList: 0
+    Vol: 0.5
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 067e24cd05cadda4fa6878a979e55f86, type: 3}
+    Tag: 2
+  - ID: OpenWindow
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: cd63a677d9938b24c8ec56869c4fde63, type: 3}
+    Tag: 2
+  - ID: Pop
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 4e44652d5e3f1eb44922274e3d7d315e, type: 3}
+    Tag: 0
+  - ID: SpinningCell
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 5ae86940e1dc84a4ba6a475f30b48236, type: 3}
+    Tag: 1
+  - ID: SpinningCellStop
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 0d90dca50cf0d874b895ab7e9f1c2c79, type: 3}
+    Tag: 1
+  - ID: SpinnerWin
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 160df73cdae04cd4b807844268027429, type: 3}
+    Tag: 1
+  - ID: SpawnUnit
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 62db77adfd1caac4287b0ee51ecbbd81, type: 3}
+    Tag: 0
+  - ID: MergeUnit
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 90c849f10b1271b4fb96f45d85da69de, type: 3}
+    Tag: 0
+  - ID: SkillUpUnit
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 8af28f565642605478e00a52a1b47801, type: 3}
+    Tag: 0
+  - ID: ReviveUnit
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 9a82138c0d4cf2649b4c7b040640b19c, type: 3}
+    Tag: 0
+  - ID: CardSwoosh
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 47a994a603d384276b96fb3aacac53a9, type: 3}
+    Tag: 3
+  - ID: CardFill
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: bcda37a10e15f1f4680f98a8eb839e56, type: 3}
+    Tag: 3
+  - ID: CardArrive
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: cc1509bb506ce614a86e47ffb2ea3bfa, type: 3}
+    Tag: 3
+  - ID: DefaultHit
+    UseList: 0
+    Vol: 0.1
+    m_ClipList:
+    - {fileID: 8300000, guid: dcefa2eabefe4684394ed0d21493f513, type: 3}
+    - {fileID: 8300000, guid: 1e1fd95c1eace1c488e76a0da5cf5fc7, type: 3}
+    - {fileID: 8300000, guid: 907f4b91fa035be41b98d76ef71fddf5, type: 3}
+    - {fileID: 8300000, guid: c930da63fa893a840aaafecf884c8c85, type: 3}
+    m_Clip: {fileID: 0}
+    Tag: 4
+  - ID: ShortTick
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 5ae86940e1dc84a4ba6a475f30b48236, type: 3}
+    Tag: 3
+  - ID: ShowDeck
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 2257c0d9eb9c21f41ac5b4ac1d311525, type: 3}
+    Tag: 3
+  - ID: SkillCardSelected
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 68460967ecee3de45ac94fe8508ab1eb, type: 3}
+    Tag: 0
+  - ID: StarPop
+    UseList: 0
+    Vol: 0.1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 0b7e8a7680765a54287e1fb8819aa598, type: 3}
+    Tag: 0
+  - ID: SkillCardPunchGround
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 55fb01794ead256439b5c2001a1a439e, type: 3}
+    Tag: 0
+  - ID: SkillCardPressed
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: fba3e24ec0b623842a77dc8155b290f7, type: 3}
+    Tag: 0
+  - ID: UpgradeCard
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 68460967ecee3de45ac94fe8508ab1eb, type: 3}
+    Tag: 0
+  - ID: CountUp
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 51aa5eb1a6bb938488cc6cac08ba06ae, type: 3}
+    Tag: 0
+  - ID: ShowBossUI
+    UseList: 0
+    Vol: 0.5
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 55fb01794ead256439b5c2001a1a439e, type: 3}
+    Tag: 0
