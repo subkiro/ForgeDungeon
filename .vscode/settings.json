@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Dwarf.slnx",
+    "dotnet.defaultSolution": "ForgeDungeon.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
