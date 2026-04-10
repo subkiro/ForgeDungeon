@@ -11,6 +11,8 @@ public class MessageForgeRoom : MonoBehaviour
 
     [SerializeField] RectTransform m_Container;
     [SerializeField] float m_delay=.3f;
+    [SerializeField] float m_power=.3f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -21,7 +23,7 @@ public class MessageForgeRoom : MonoBehaviour
     {
         m_Animator.SetTrigger("2_Attack");
         m_Container.DOKill(true);
-        m_Container.DOPunchPosition(Vector2.down*50f,.3f).SetDelay(m_delay);
+        m_Container.DOPunchPosition(Vector2.down*50f*m_power,.3f).SetDelay(m_delay);
     }
     // Update is called once per frame
 
