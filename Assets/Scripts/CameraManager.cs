@@ -29,7 +29,7 @@ public class CameraManager : MonoBehaviour
 
     public void Initialize()
     {
-         MainCamera = m_MainCamera ? m_MainCamera : Camera.main;
+        MainCamera = m_MainCamera ? m_MainCamera : Camera.main;
         MainCameraBrain = MainCamera.GetComponent<CinemachineBrain>();
         Application.targetFrameRate = 120;
 

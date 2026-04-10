@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         m_UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         m_TutorialManager = this.GetComponentInChildren<TutorialManager>(true);
         m_Player = this.GetComponentInChildren<Player>(true);
-        CameraManager = GameObject.FindFirstObjectByType<CameraManager>();
+        CameraManager = FindAnyObjectByType<CameraManager>();
 
         if (InitOnAwake)
         {
@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                loadIsComplete[0] = true;
                 CheckIfAllComplete(Init);
 
             }
@@ -143,17 +142,17 @@ public class GameManager : MonoBehaviour
 
         m_InitAction = () =>
         {
+            CameraManager.Initialize();
             UIManager.Initialize();
             Player.InitialisePlayer();
             SettingsManager.Initialize();
             HapticManager.Initialize();
             SoundManager.Initialize();
-            CameraManager.Initialize();
 
             OnInitializationComplete?.Invoke();
 
             //Start Game
-           
+           Tools.Log("Game Started");
 
         };
 
