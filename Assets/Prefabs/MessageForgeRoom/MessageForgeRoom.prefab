@@ -242,7 +242,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8959931360142471307}
   m_Father: {fileID: 4599551581158200227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -302,30 +303,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Coffee.UIEffect::Coffee.UIEffects.UIEffect
   m_ToneFilter: 0
   m_ToneIntensity: 1
-  m_ColorFilter: 0
-  m_ColorIntensity: 1
+  m_ColorFilter: 4
+  m_ColorIntensity: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_ColorGlow: 0
   m_SamplingFilter: 0
   m_SamplingIntensity: 0.5
   m_SamplingWidth: 1
   m_SamplingScale: 1
-  m_TransitionFilter: 4
+  m_TransitionFilter: 0
   m_TransitionRate: 0.5
   m_TransitionReverse: 0
-  m_TransitionTex: {fileID: 2800000, guid: 944c3fa29663042a1bdc35546c2eda58, type: 3}
+  m_TransitionTex: {fileID: 0}
   m_TransitionTexScale: {x: 1, y: 1}
   m_TransitionTexOffset: {x: 0, y: 0}
   m_TransitionTexSpeed: {x: 0, y: 0}
-  m_TransitionRotation: 135
+  m_TransitionRotation: 0
   m_TransitionKeepAspectRatio: 1
-  m_TransitionWidth: 0.25
-  m_TransitionSoftness: 0.5
+  m_TransitionWidth: 0.2
+  m_TransitionSoftness: 0.2
   m_TransitionRange:
     m_Min: 0
     m_Max: 1
   m_TransitionColorFilter: 6
-  m_TransitionColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_TransitionColor: {r: 0, g: 0.5, b: 1, a: 1}
   m_TransitionColorGlow: 0
   m_TransitionPatternReverse: 0
   m_TransitionAutoPlaySpeed: 0
@@ -361,7 +362,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_TargetMode: 0
   m_TargetColor: {r: 1, g: 1, b: 1, a: 1}
-  m_TargetRange: 1
+  m_TargetRange: 0.1
   m_TargetSoftness: 0.5
   m_BlendType: 1
   m_SrcBlendMode: 1
@@ -475,7 +476,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 95.31006}
+  m_AnchoredPosition: {x: 0, y: 95}
   m_SizeDelta: {x: 512.43, y: 262.58997}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &2709800155230792983
@@ -913,8 +914,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MessageForgeRoom
   m_ForgeButton: {fileID: 1340669322609937058}
   m_DwarfCharacter: {fileID: 342920047581040184}
+  m_Forge: {fileID: 4136069533467005725}
+  m_ForgeHitEffect: {fileID: 7136315212450996899}
   m_Container: {fileID: 4599551581158200227}
   m_delay: 0.3
+  m_power: 0.3
+  m_TextPrefab: {fileID: 1604649985497778957, guid: dbbd5875f2db945c29d6ea45a75cf9ed, type: 3}
 --- !u!1 &5581598722540412207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,7 +1045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 699.71}
+  m_AnchoredPosition: {x: 0, y: 700}
   m_SizeDelta: {x: 943.5, y: 34.6}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &6484805608860859144
@@ -1818,6 +1823,81 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &3255723844841337579
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 494207958269433757}
+    m_Modifications:
+    - target: {fileID: 5631733150776479816, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5631733150776479816, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 131
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185329391364623494, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+      propertyPath: m_Name
+      value: ForgeHitEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+--- !u!198 &7136315212450996899 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5631733150776479816, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+  m_PrefabInstance: {fileID: 3255723844841337579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8959931360142471307 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5870078794263806560, guid: 9433a161b900a48ceb406f0702d69245, type: 3}
+  m_PrefabInstance: {fileID: 3255723844841337579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6413740640250000237
 PrefabInstance:
   m_ObjectHideFlags: 0
