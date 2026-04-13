@@ -19,6 +19,12 @@ public class MessageForgeRoom : MonoBehaviour
     [SerializeField] float m_delay=.3f;
     [SerializeField] float m_power=.3f;
 
+    [SerializeField] Slider m_Slider_Base;
+    [SerializeField] Slider m_Slider_0;
+    [SerializeField] Slider m_Slider_1;
+    [SerializeField] Slider m_Slider_2;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -97,6 +103,7 @@ public class MessageForgeRoom : MonoBehaviour
 
         
     }
+
 async Awaitable SpawnText(Vector3 pos, float amount,float size)
         {
             pos = pos+Vector3.right* UnityEngine.Random.value*-2;

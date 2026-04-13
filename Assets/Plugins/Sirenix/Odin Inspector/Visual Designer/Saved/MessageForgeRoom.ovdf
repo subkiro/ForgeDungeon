@@ -1,0 +1,38 @@
+OVDF v1.1
+MessageForgeRoom, Assembly-CSharp
+MetaGuid:8bf181639037c42f19cdfce2ba847ccd
+
+# $46q9idahdLeyrhUkgBMVYy
+Position: $root:19
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Sliders"
+
+# $QLjvExqcmcs15Yt5Nf9eUr
+Position: $root:18
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "HitParameters"
+
+# m_Slider_Base
+Position: $46q9idahdLeyrhUkgBMVYy:0
+
+# m_Slider_0
+Position: $46q9idahdLeyrhUkgBMVYy:1
+
+# m_Slider_1
+Position: $46q9idahdLeyrhUkgBMVYy:2
+
+# m_Slider_2
+Position: $46q9idahdLeyrhUkgBMVYy:3
+
+# m_power
+Position: $QLjvExqcmcs15Yt5Nf9eUr:0
+
+# m_delay
+Position: $QLjvExqcmcs15Yt5Nf9eUr:1
+
+# m_ForgeHitEffect
+Position: $QLjvExqcmcs15Yt5Nf9eUr:2
+
+# m_TextPrefab
++ [Sirenix.OdinInspector.GUIColorAttribute]
+	Color = #96FD2AFF

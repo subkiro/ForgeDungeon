@@ -996,6 +996,10 @@ MonoBehaviour:
   m_Container: {fileID: 4599551581158200227}
   m_delay: 0.3
   m_power: 0.3
+  m_Slider_Base: {fileID: 231096817378187850}
+  m_Slider_0: {fileID: 2056170165920408785}
+  m_Slider_1: {fileID: 4847509816170673788}
+  m_Slider_2: {fileID: 3393427398392685077}
   m_TextPrefab: {fileID: 1604649985497778957, guid: dbbd5875f2db945c29d6ea45a75cf9ed, type: 3}
 --- !u!1 &5581598722540412207
 GameObject:
