@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Pool;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 public class MessageForgeRoom : MonoBehaviour
 {
 
@@ -19,10 +21,13 @@ public class MessageForgeRoom : MonoBehaviour
     [SerializeField] float m_delay=.3f;
     [SerializeField] float m_power=.3f;
 
+    [SerializeField] float m_SliderStep = 10;
+    int m_SliderCurrentIndex = 0;
     [SerializeField] Slider m_Slider_Base;
-    [SerializeField] Slider m_Slider_0;
-    [SerializeField] Slider m_Slider_1;
-    [SerializeField] Slider m_Slider_2;
+    [SerializeField] List<Slider> m_Sliders;
+    [SerializeField] List<string> m_SliderTitles;
+    [SerializeField]TMP_Text m_SliderTitleText;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,6 +36,7 @@ public class MessageForgeRoom : MonoBehaviour
         m_Animator = m_DwarfCharacter.GetComponentInChildren<Animator>();
         m_ForgeButton.onClick.AddListener(()=>_=ForgePressed());
         PoolSetup();
+        InitSliders();
     }
     async Awaitable ForgePressed()
     {
@@ -43,7 +49,11 @@ public class MessageForgeRoom : MonoBehaviour
         GameManager.Instance.SoundManager.PlayGivenSound("ForgeHit",pitch: UnityEngine.Random.Range(1,1.1f));
         BlinkForge();
         PlayVFX();
-        _=SpawnText(m_Forge.transform.position,UnityEngine.Random.Range(50,1000),UnityEngine.Random.Range(1,1.5f));
+        OnUpdateSlider();
+
+
+        _=SpawnText(m_Forge.transform.position,UnityEngine.Random.Range(50,12000),UnityEngine.Random.Range(1,1.5f));
+
     }
     // Update is called once per frame
     void PlayVFX()
@@ -63,8 +73,30 @@ public class MessageForgeRoom : MonoBehaviour
         }
     }
 
+    void InitSliders(int sliderIndex = 0)
+    {
+        var devisionStep = 1/(sliderIndex+1f);
+        m_Slider_Base.value =sliderIndex==0?0: 1-1f/(sliderIndex+1);
+        m_SliderTitleText.text = m_SliderTitles[Mathf.Clamp(sliderIndex,0,m_SliderTitles.Count-1)];
+
+        for (int i = 0; i < m_Sliders.Count; i++)
+        {
+            m_Sliders[i].value = i<=sliderIndex?(i+1)*devisionStep: 1 ;
+        }
+        
+
+    }
+    void OnUpdateSlider()
+    {
+        m_Slider_Base.value+=m_SliderStep/(m_SliderCurrentIndex+1);
+        if (m_Slider_Base.value >= 1)
+        {
+            m_SliderCurrentIndex++;
+            InitSliders(m_SliderCurrentIndex);
+        }
 
 
+    }
     #region  Pool
 
     ObjectPool<TMP_Text> m_PoolText;
@@ -110,7 +142,7 @@ async Awaitable SpawnText(Vector3 pos, float amount,float size)
             var rot = new Vector3(0,0,UnityEngine.Random.Range(-30,30));
 
             var text = m_PoolText.Get();
-            text.text = amount.ToString();
+            text.text = Tools.ShortNumeric( amount);
             text.rectTransform.localEulerAngles = rot;
             text.rectTransform.position = pos;
             text.transform.localScale = Vector3.one*size;
