@@ -6,12 +6,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Pool;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using System.Linq;
-public class MessageForgeRoom : MonoBehaviour
+public class MessageForgeRoom : PopUp
 {
 
     [SerializeField] Button m_ForgeButton;
+    [SerializeField] Button m_BackButton;
+
     [SerializeField] GameObject m_DwarfCharacter;
     [SerializeField] Image m_Forge;
     [SerializeField] ParticleSystem m_ForgeHitEffect;
@@ -60,17 +61,22 @@ public class MessageForgeRoom : MonoBehaviour
     Dictionary<StatType,float> m_ActiveStats;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    public void SetData()
     {
         m_Animator = m_DwarfCharacter.GetComponentInChildren<Animator>();
         m_ForgeButton.onClick.AddListener(()=>_=ForgePressed());
-
+        m_BackButton.onClick.AddListener(OnClose);
         PoolSetup();
         InitStas();
         InitSliders();
         InitTimer();
         InitEnergyBar();
         InitSequencer(m_SequenceDuration,m_SequenceSuccesChance);
+    }
+
+    private void OnClose()
+    {
+        OnCompleteBase?.Invoke();
     }
 
     private void InitEnergyBar()
