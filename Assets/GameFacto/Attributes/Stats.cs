@@ -18,9 +18,9 @@ public struct Stats
     public Color GetButtonColor() {
         switch (Stat_Type)
         {
-            case StatType.BattaryCapacity:
+            case StatType.ForgePower:
                 return Color.red;
-            case StatType.DigSpeed:
+            case StatType.ForgeEnergy:
                 return Color.cyan;
             
             default:
@@ -29,4 +29,4 @@ public struct Stats
     }
 
 }
-public enum StatType { BattaryCapacity, DamagePower, DigSpeed, AttackSpeed, XP,Coin,Empty }
+public enum StatType {Empty, ForgePower, ForgeEnergy, XP,Coin }

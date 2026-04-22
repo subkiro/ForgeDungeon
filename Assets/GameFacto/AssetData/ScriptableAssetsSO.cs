@@ -16,8 +16,10 @@ public class ScriptableAssetsSO : ScriptableObject
     public List<int> ProgressLevelValues;
 
 
-   
+   [TabGroup("PopUp")]
     public GameObject MessageSettings;
+    [TabGroup("PopUp")]
+    public GameObject MessageForgeRoom;
 
 
 

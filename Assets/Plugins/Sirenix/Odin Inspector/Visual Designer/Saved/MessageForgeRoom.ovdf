@@ -3,17 +3,37 @@ MessageForgeRoom, Assembly-CSharp
 MetaGuid:8bf181639037c42f19cdfce2ba847ccd
 
 # $46q9idahdLeyrhUkgBMVYy
-Position: $root:19
+Position: $root:11
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "Sliders"
 
 # $QLjvExqcmcs15Yt5Nf9eUr
-Position: $root:18
+Position: $root:10
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "HitParameters"
 
+# $Mj9GnNaMSGmqJ71vjpG14W
+Position: $root:18
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Timer"
+
+# $U1a8npdfi68vax9vJRZNUY
+Position: $root:19
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Resource"
+
+# $YN7kZRAr54gCppArtKbmaY
+Position: $root:9
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "SequenceTimer"
+
+# $LomQbgfdahuxfmxbufLSoB
+Position: $root:36
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Energy"
+
 # m_Slider_Base
-Position: $46q9idahdLeyrhUkgBMVYy:0
+Position: $46q9idahdLeyrhUkgBMVYy:4
 
 # m_Slider_0
 Position: $46q9idahdLeyrhUkgBMVYy:1
@@ -25,14 +45,81 @@ Position: $46q9idahdLeyrhUkgBMVYy:2
 Position: $46q9idahdLeyrhUkgBMVYy:3
 
 # m_power
-Position: $QLjvExqcmcs15Yt5Nf9eUr:0
-
-# m_delay
-Position: $QLjvExqcmcs15Yt5Nf9eUr:1
-
-# m_ForgeHitEffect
 Position: $QLjvExqcmcs15Yt5Nf9eUr:2
 
+# m_delay
+Position: $QLjvExqcmcs15Yt5Nf9eUr:3
+
+# m_ForgeHitEffect
+Position: $QLjvExqcmcs15Yt5Nf9eUr:4
+
 # m_TextPrefab
+Position: $root:7
 + [Sirenix.OdinInspector.GUIColorAttribute]
 	Color = #96FD2AFF
+
+# m_Sliders
+Position: $46q9idahdLeyrhUkgBMVYy:5
+
+# m_SliderStep
+Position: $46q9idahdLeyrhUkgBMVYy:3
+
+# m_SliderTitleText
+Position: $46q9idahdLeyrhUkgBMVYy:2
+
+# m_SliderTitles
+Position: $46q9idahdLeyrhUkgBMVYy:1
+
+# m_Slider_Timer
+Position: $Mj9GnNaMSGmqJ71vjpG14W:1
+
+# m_SliderTimerText
+Position: $Mj9GnNaMSGmqJ71vjpG14W:0
+
+# m_ResourceImage
+Position: $U1a8npdfi68vax9vJRZNUY:1
+
+# m_ResourceContainer
+Position: $U1a8npdfi68vax9vJRZNUY:0
+
+# m_SuccesHitID
+Position: $QLjvExqcmcs15Yt5Nf9eUr:1
++ [Sirenix.OdinInspector.GUIColorAttribute]
+	Color = #F6FF00FF
+
+# m_FailHitID
+Position: $QLjvExqcmcs15Yt5Nf9eUr:0
++ [Sirenix.OdinInspector.GUIColorAttribute]
+	Color = #F5FF00FF
+
+# m_SequencerHandleImage
+Position: $YN7kZRAr54gCppArtKbmaY:4
+
+# m_SequencerMissImage
+Position: $YN7kZRAr54gCppArtKbmaY:5
+
+# m_Slider_Sequencer
+Position: $YN7kZRAr54gCppArtKbmaY:3
+
+# m_SequenceDuration
+Position: $YN7kZRAr54gCppArtKbmaY:1
+
+# m_ActiveStats
+Position: $root:0
++ [Sirenix.OdinInspector.GUIColorAttribute]
+	Color = #4BFF17FF
+
+# m_Slider_SequencerText
+Position: $YN7kZRAr54gCppArtKbmaY:0
+
+# m_Slider_Energy
+Position: $LomQbgfdahuxfmxbufLSoB:1
+
+# m_Slider_EnergyText
+Position: $LomQbgfdahuxfmxbufLSoB:0
+
+# m_BaseStats
+Position: $root:8
+
+# m_SequenceSuccesChance
+Position: $YN7kZRAr54gCppArtKbmaY:2

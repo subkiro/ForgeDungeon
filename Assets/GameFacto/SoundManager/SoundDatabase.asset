@@ -26,3 +26,12 @@ MonoBehaviour:
     m_ClipList: []
     m_Clip: {fileID: 8300000, guid: 55fb01794ead256439b5c2001a1a439e, type: 3}
     Tag: 0
+  - ID: ForgeMiss
+    UseList: 1
+    Vol: 1
+    m_ClipList:
+    - {fileID: 8300000, guid: e3b2966e578a38647a558a8fa35fabd1, type: 3}
+    - {fileID: 8300000, guid: 4a0e1592cc1cf2b48bce84e9fcd39f92, type: 3}
+    - {fileID: 8300000, guid: 6cc0259f98229a64da43ba52927cdfee, type: 3}
+    m_Clip: {fileID: 0}
+    Tag: 0
