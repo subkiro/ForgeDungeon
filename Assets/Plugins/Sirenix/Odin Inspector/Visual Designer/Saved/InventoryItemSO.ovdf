@@ -1,0 +1,15 @@
+OVDF v1.1
+InventoryItemSO, Assembly-CSharp
+MetaGuid:b8c6f3d01ea345144bbfe1f7091cbf7b
+
+# $6HK5vyh7NJnTCBCi6PfCdb
+Position: $root:1
++ [Sirenix.OdinInspector.HorizontalGroupAttribute]
+
+# Icon
+Position: $6HK5vyh7NJnTCBCi6PfCdb:1
++ [Sirenix.OdinInspector.PreviewFieldAttribute]
+
+# Background
+Position: $6HK5vyh7NJnTCBCi6PfCdb:0
++ [Sirenix.OdinInspector.PreviewFieldAttribute]
