@@ -1,7 +1,0 @@
-OVDF v1.1
-MaterialSO, Assembly-CSharp
-MetaGuid:97094a41811a8c84f9d6ba4d07a3b4fc
-
-# Icon
-+ [Sirenix.OdinInspector.ShowIfAttribute]
-	Condition = "IsStackable"
