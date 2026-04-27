@@ -15,7 +15,8 @@ public class ScriptableAssetsSO : ScriptableObject
     [TabGroup("LevelData")]
     public List<int> ProgressLevelValues;
 
-
+   [TabGroup("PopUp")]
+    public GameObject MessageChoice;
    [TabGroup("PopUp")]
     public GameObject MessageSettings;
     [TabGroup("PopUp")]

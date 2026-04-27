@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
@@ -16,10 +17,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] CanvasGroup m_HUDGroup;
 
     [SerializeField] Button m_SettingsButtonInGame;
-    public Button SettingButton=> m_SettingsButtonInGame;
+    [SerializeField] Button m_ChoiceButton;
+
+    public Button SettingButton => m_SettingsButtonInGame;
 
     Canvas m_UICanvas;
-   
+
 
 
 
@@ -32,7 +35,8 @@ public class UIManager : MonoBehaviour
         m_UICanvas = this.GetComponent<Canvas>();
         m_UICanvas.worldCamera = GameManager.Instance.CameraManager.MainCamera;
         m_SettingsButtonInGame.onClick.AddListener(ShowSettings);
-       
+        m_ChoiceButton.onClick.AddListener(ShowChoice);
+
 
     }
 
@@ -42,6 +46,16 @@ public class UIManager : MonoBehaviour
         message.SetData();
     }
 
+    private void ShowChoice()
+    {
+        var message = PopUpManager.Instance.ShowSimple<MessageChoice>(GameManager.Instance.AssetScriptableData.MessageChoice, FadeOutSpeed: 0.01f);
+        message.SetData(OnChoiceMade);
+
+        void OnChoiceMade(MessageChoice.ChoiceResult choice)
+        {
+            Tools.Log(choice.choice.ToString());
+        }
+    }
 
 
 
@@ -62,7 +76,7 @@ public class UIManager : MonoBehaviour
     //         GameManager.Instance.TutorialManager.CallTutorial(data);
 
     //     }
-       
+
 
     // }
 
