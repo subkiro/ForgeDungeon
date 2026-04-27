@@ -3,6 +3,8 @@ public class ForgeBuilding: BuildingBase
 
     void OnMouseDown()
     {
+             if(GameManager.Instance.InteractionState == InteractionState.UI) return;
+
        Show_MessageForgePreperation();
     }
 

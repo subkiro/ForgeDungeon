@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RawResourceSO
   ID: Silver
   DisplayName: Helmet
+  Descripton: here is some descripton of the item that we should put
   Icon: {fileID: -7786538801905712091, guid: 848bc3c193b31c7489b3ad483cc4a824, type: 3}
   Background: {fileID: 0}
+  Rarity: 0
   BasicStats: []

@@ -20,7 +20,22 @@ MonoBehaviour:
   MessageSettings: {fileID: 4294156084412189331, guid: 491d319e7f3929b4abc1d564a509f2ba, type: 3}
   MessageForgeRoom: {fileID: 5528919154200801659, guid: 0e551225cc1994ce09b4bf89f9ae12e0, type: 3}
   MessageForgePreperation: {fileID: 2838248631059193931, guid: f95b691c936744a3299a7a3706df6f25, type: 3}
+  MessageInventoryMarket: {fileID: 7408096767735197606, guid: eb2cb602b15c743bdb66bff0055e35e4, type: 3}
   RewardUIItem: {fileID: -8130640444198496008, guid: 5c08d158de5049d4ab0dae733718ddc6, type: 3}
+  ItemCell_View: {fileID: 7531612583663953635, guid: 75adf3656040f40fbad8f8012ac6fc19, type: 3}
+  InventoryItemCell: {fileID: 1885494030418231684, guid: 8ae3ad4eef5a9424ca122880dfcd7325, type: 3}
+  InventoryItemCell_Toggle: {fileID: 3623110754705474942, guid: 4e161811e636646d1a09d4ce7d765032, type: 3}
   Coin_Icon: {fileID: 21300000, guid: fa3eea7e98818a544a2587d38f3bab14, type: 3}
   Default_EmptyIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   dataBaseSO: {fileID: 11400000, guid: 4444358fae11f4307bad5a92e72d4595, type: 2}
+  m_RarityData:
+  - Rarity: 0
+    color: {r: 0.62352943, g: 0.5294118, b: 0.39607844, a: 1}
+  - Rarity: 1
+    color: {r: 0.20274118, g: 0.49680248, b: 0.6415094, a: 1}
+  - Rarity: 2
+    color: {r: 0.9196866, g: 0.9528302, b: 0, a: 1}
+  - Rarity: 3
+    color: {r: 0.8774955, g: 0.2216981, b: 1, a: 1}
+  - Rarity: 4
+    color: {r: 1, g: 0.6850692, b: 0, a: 1}

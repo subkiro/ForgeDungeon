@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97094a41811a8c84f9d6ba4d07a3b4fc, type: 3}
   m_Name: Irotn Test 1
   m_EditorClassIdentifier: Assembly-CSharp::MaterialSO
-  name: Iron
+  ID: 
+  DisplayName: 
+  Descripton: here is some descripton of the item that we should put
   Icon: {fileID: 21300000, guid: 732442a90ec3747df83c46125de06b60, type: 3}
   Background: {fileID: 0}
+  Rarity: 0
   BasicStats:
   - Stat_Type: 1
     Stat_Value: 15

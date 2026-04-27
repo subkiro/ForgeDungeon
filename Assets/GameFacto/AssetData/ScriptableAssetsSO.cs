@@ -10,25 +10,33 @@ using UnityEngine;
 
 public class ScriptableAssetsSO : ScriptableObject
 {
-   
+
     public List<TutorialFeatureSO> TutorialFeatures;
     [TabGroup("LevelData")]
     public List<int> ProgressLevelValues;
 
-   [TabGroup("PopUp")]
+    [TabGroup("PopUp")]
     public GameObject MessageChoice;
-   [TabGroup("PopUp")]
+    [TabGroup("PopUp")]
     public GameObject MessageSettings;
     [TabGroup("PopUp")]
     public GameObject MessageForgeRoom;
     [TabGroup("PopUp")]
     public GameObject MessageForgePreperation;
-
+    [TabGroup("PopUp")]
+    public GameObject MessageInventoryMarket;
 
 
     [TabGroup("Prefabs")]
     public RewardUiItem RewardUIItem;
+    [TabGroup("Prefabs")]
 
+    public ItemCellView ItemCell_View;
+    [TabGroup("Prefabs")]
+    public InventoryItemCell InventoryItemCell;
+    [TabGroup("Prefabs")]
+
+    public InventoryItemCell_Toggle InventoryItemCell_Toggle;
 
 
     public Sprite Coin_Icon;
@@ -37,12 +45,15 @@ public class ScriptableAssetsSO : ScriptableObject
     [TabGroup("LevelData")]
 
     public DataBaseSO dataBaseSO;
-    
+
+      [TabGroup("LevelData")]
+      [SerializeField] List<RarityData>m_RarityData;
+      public RarityData GetRarity(Rarity rarity)=>m_RarityData.First(x=>x.Rarity==rarity);
     public Sprite GetSprite(RewardType type)
     {
         switch (type)
         {
-            case RewardType.COIN :
+            case RewardType.COIN:
                 return Coin_Icon;
 
 
