@@ -1,0 +1,20 @@
+OVDF v1.1
+MessageInventoryMarket, Assembly-CSharp
+MetaGuid:5cf0577bca7964bd6b3d5576469610b8
+
+# $5tU1mfjKtHFfrNRFVVNbGw
+Position: $root:4
++ [Sirenix.OdinInspector.FoldoutGroupAttribute]
+	GroupName = "Preview"
+
+# m_PreviewGroup
+Position: $5tU1mfjKtHFfrNRFVVNbGw:3
+
+# m_PreviewCellView
+Position: $5tU1mfjKtHFfrNRFVVNbGw:2
+
+# m_PreviewBuyButton
+Position: $5tU1mfjKtHFfrNRFVVNbGw:1
+
+# m_PreviewDescription
+Position: $5tU1mfjKtHFfrNRFVVNbGw:0
