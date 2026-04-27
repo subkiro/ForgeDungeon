@@ -171,7 +171,7 @@ public class MessageForgeRoom : PopUp
         m_Slider_Timer.DOValue(0, seconds).From(1).SetEase(Ease.Linear).OnUpdate(() =>
         {
              m_SliderTimerText.text = ToMMSS(Mathf.RoundToInt(seconds*m_Slider_Timer.value));
-        });
+        }).SetLink(this.gameObject);
         
         
         string ToMMSS(int seconds)

@@ -3039,7 +3039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf181639037c42f19cdfce2ba847ccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MessageForgeRoom
-  Poolable: 1
+  Poolable: 0
   blureUsed: 0
   ignoreStateChange: 0
   m_ForgeButton: {fileID: 1340669322609937058}

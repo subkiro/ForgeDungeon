@@ -20,7 +20,8 @@ public class ScriptableAssetsSO : ScriptableObject
     public GameObject MessageSettings;
     [TabGroup("PopUp")]
     public GameObject MessageForgeRoom;
-
+    [TabGroup("PopUp")]
+    public GameObject MessageForgePreperation;
 
 
 
@@ -34,7 +35,7 @@ public class ScriptableAssetsSO : ScriptableObject
     public Sprite Default_EmptyIcon;
     [TabGroup("LevelData")]
 
-
+    public DataBaseSO dataBaseSO;
     
     public Sprite GetSprite(RewardType type)
     {

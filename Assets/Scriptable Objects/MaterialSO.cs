@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Material Scriptable", menuName = "Scriptable Objects/Material Scriptable")]
+[CreateAssetMenu(fileName = "Material", menuName = "Scriptable Objects/MaterialSO")]
 public class MaterialSO : InventoryItemSO
 {
     public bool IsStackable;

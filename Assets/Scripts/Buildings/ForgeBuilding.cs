@@ -3,8 +3,15 @@ public class ForgeBuilding: BuildingBase
 
     void OnMouseDown()
     {
-       var messagePrefab =  GameManager.Instance.AssetScriptableData.MessageForgeRoom;
-       var message = PopUpManager.Instance.ShowSimple<MessageForgeRoom>(messagePrefab);
+       Show_MessageForgePreperation();
+    }
+
+    public void Show_MessageForgePreperation()
+    {
+       var messagePrefab =  GameManager.Instance.AssetScriptableData.MessageForgePreperation;
+       var message = PopUpManager.Instance.ShowSimple<MessageForgePreperation>(messagePrefab);
        message.SetData();
     }
+
+
 }

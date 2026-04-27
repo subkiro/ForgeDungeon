@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb661782bdd0410697dc793a9be29fd, type: 3}
+  m_Name: RawResource 1
+  m_EditorClassIdentifier: Assembly-CSharp::RawResourceSO
+  ID: Silver
+  DisplayName: Helmet
+  Icon: {fileID: -7786538801905712091, guid: 848bc3c193b31c7489b3ad483cc4a824, type: 3}
+  Background: {fileID: 0}
+  BasicStats: []
