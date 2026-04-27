@@ -617,8 +617,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Forege Preperation
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0173ebb7499d9274c9c517d5feac7a5e, type: 2}
-  m_sharedMaterial: {fileID: -4288724494704299931, guid: 0173ebb7499d9274c9c517d5feac7a5e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e78ef0d5545984f7a8bcb9f4c3ef4adb, type: 2}
+  m_sharedMaterial: {fileID: 4521261154298394455, guid: e78ef0d5545984f7a8bcb9f4c3ef4adb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -642,8 +642,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
-  m_fontSizeBase: 55
+  m_fontSize: 99
+  m_fontSizeBase: 99
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
