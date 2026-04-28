@@ -91,6 +91,8 @@ public class MessageForgePreperation : PopUp
     void OnSelectItem(InventoryItemSO selectedItem)
     {
         m_CategoryToggle[selectedItem.GetType()].SetInvetoryItem(selectedItem);
+        GameManager.Instance.HapticManager.VibradePreset(HapticManager.HapticType.PEEK);
+
     }
 
     void OnCleanUp()

@@ -58,7 +58,10 @@ public class MessageInventoryMarket : PopUp
     }
     void OnSelectItem(InventoryItemSO item, bool isOn)
     {
-        if(isOn) UpdatePreview(item);
+        if(isOn) {
+            GameManager.Instance.HapticManager.VibradePreset(HapticManager.HapticType.PEEK);
+            UpdatePreview(item);
+            }
         //Show some actions
     }
     #region  Preview

@@ -3,32 +3,27 @@ MessageForgeRoom, Assembly-CSharp
 MetaGuid:8bf181639037c42f19cdfce2ba847ccd
 
 # $46q9idahdLeyrhUkgBMVYy
-Position: $root:11
+Position: $root:10
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "Sliders"
 
 # $QLjvExqcmcs15Yt5Nf9eUr
-Position: $root:10
+Position: $root:11
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "HitParameters"
 
 # $Mj9GnNaMSGmqJ71vjpG14W
-Position: $root:18
+Position: $root:16
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "Timer"
 
 # $U1a8npdfi68vax9vJRZNUY
-Position: $root:19
+Position: $root:17
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "Resource"
 
-# $YN7kZRAr54gCppArtKbmaY
-Position: $root:9
-+ [Sirenix.OdinInspector.FoldoutGroupAttribute]
-	GroupName = "SequenceTimer"
-
 # $LomQbgfdahuxfmxbufLSoB
-Position: $root:36
+Position: $root:33
 + [Sirenix.OdinInspector.FoldoutGroupAttribute]
 	GroupName = "Energy"
 
@@ -45,13 +40,13 @@ Position: $46q9idahdLeyrhUkgBMVYy:2
 Position: $46q9idahdLeyrhUkgBMVYy:3
 
 # m_power
-Position: $QLjvExqcmcs15Yt5Nf9eUr:2
+Position: $QLjvExqcmcs15Yt5Nf9eUr:1
 
 # m_delay
 Position: $QLjvExqcmcs15Yt5Nf9eUr:3
 
 # m_ForgeHitEffect
-Position: $QLjvExqcmcs15Yt5Nf9eUr:4
+Position: $QLjvExqcmcs15Yt5Nf9eUr:2
 
 # m_TextPrefab
 Position: $root:7
@@ -83,7 +78,7 @@ Position: $U1a8npdfi68vax9vJRZNUY:1
 Position: $U1a8npdfi68vax9vJRZNUY:0
 
 # m_SuccesHitID
-Position: $QLjvExqcmcs15Yt5Nf9eUr:1
+Position: $QLjvExqcmcs15Yt5Nf9eUr:0
 + [Sirenix.OdinInspector.GUIColorAttribute]
 	Color = #F6FF00FF
 
@@ -123,3 +118,12 @@ Position: $root:8
 
 # m_SequenceSuccesChance
 Position: $YN7kZRAr54gCppArtKbmaY:2
+
+# m_hitDuration
+Position: $QLjvExqcmcs15Yt5Nf9eUr:4
+
+# m_HitRange
+Position: $QLjvExqcmcs15Yt5Nf9eUr:3
+
+# m_HitProgress
+Position: $QLjvExqcmcs15Yt5Nf9eUr:5
