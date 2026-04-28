@@ -35,9 +35,18 @@ public class UIManager : MonoBehaviour
         m_UICanvas = this.GetComponent<Canvas>();
         m_UICanvas.worldCamera = GameManager.Instance.CameraManager.MainCamera;
         m_SettingsButtonInGame.onClick.AddListener(ShowSettings);
-        m_ChoiceButton.onClick.AddListener(ShowChoice);
+        m_ChoiceButton.onClick.AddListener(DebugChoiceButton);
 
 
+    }
+
+    private void DebugChoiceButton()
+    {
+        ShowChoice(default,OnChoiceMade);
+         void OnChoiceMade(MessageChoice.ChoiceResult choice)
+        {
+            Tools.Log(choice.choice.ToString());
+        }
     }
 
     private void ShowSettings()
@@ -46,15 +55,12 @@ public class UIManager : MonoBehaviour
         message.SetData();
     }
 
-    private void ShowChoice()
+    public void ShowChoice(MessageChoice.ChoiceParameters parametes, UnityAction<MessageChoice.ChoiceResult> result )
     {
         var message = PopUpManager.Instance.ShowSimple<MessageChoice>(GameManager.Instance.AssetScriptableData.MessageChoice, FadeOutSpeed: 0.01f);
-        message.SetData(OnChoiceMade);
+        message.SetData(parametes,result);
 
-        void OnChoiceMade(MessageChoice.ChoiceResult choice)
-        {
-            Tools.Log(choice.choice.ToString());
-        }
+       
     }
 
 

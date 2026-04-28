@@ -37,11 +37,11 @@ public class MessageChoice : PopUp
         if (Toggle != null) Toggle.isOn = false;
     }
 
-    public void SetData(UnityAction<ChoiceResult> OnComplete = null)
+    public void SetData(ChoiceParameters data, UnityAction<ChoiceResult> OnComplete = null)
     {
        // m_TimerTitle.text = GameManager.Instance.LevelManager.LevelData.TimeLeft;
         m_OnCompleteAction = OnComplete;
-        SetUpVisuals();
+        SetUpVisuals(data);
         ShowAnimation();
     }
 
@@ -79,11 +79,15 @@ public class MessageChoice : PopUp
 
     }
 
-    void SetUpVisuals()
+    void SetUpVisuals(ChoiceParameters data)
     {
+        TitleText.text = data.TitleText.IsNullOrEmpty()?TitleText.text:data.TitleText;
+        MiddleText.text =data.MiddleText.IsNullOrEmpty()?MiddleText.text:data.MiddleText;
 
-        int reviveCost = GameManager.Instance.GameConstants.ReviveCost;
-        bool useAds = GameManager.Instance.GameConstants.UseAds;
+        m_NO_buttonText.text = data.NoButtonText.IsNullOrEmpty()?m_NO_buttonText.text:data.NoButtonText;
+        m_YES_buttonText.text = data.YesButtongText.IsNullOrEmpty()?m_YES_buttonText.text:data.YesButtongText;
+
+
         m_YES_button.onClick.AddListener(OnYES_pressed);
         m_NO_button.onClick.AddListener(OnNO_pressed);
 
@@ -136,6 +140,16 @@ public class MessageChoice : PopUp
 
         public TwoStateChoice choice;
         public bool isToggleChecked;
+
+    }
+
+    public struct ChoiceParameters
+    {
+        public string TitleText;
+        public string MiddleText;
+
+        public string YesButtongText;
+        public string NoButtonText;
 
     }
 

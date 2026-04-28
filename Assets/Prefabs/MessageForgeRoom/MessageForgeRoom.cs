@@ -20,10 +20,8 @@ public class MessageForgeRoom : PopUp
     Animator m_Animator;
 
     [SerializeField] RectTransform m_Container;
-    [SerializeField] float m_delay=.3f;
-    [SerializeField] float m_power=.3f;
-    [SerializeField] string m_SuccesHitID = "2_Attack";
-    [SerializeField] string m_FailHitID;
+
+
 
 
     [SerializeField] float m_SliderStep = 10;
@@ -41,16 +39,14 @@ public class MessageForgeRoom : PopUp
     [SerializeField] Image m_ResourceImage;
 
 
-    [SerializeField]TMP_Text m_Slider_SequencerText;
-
-    [SerializeField] float m_SequenceDuration = .5f;
-    [SerializeField] float m_SequenceSuccesChance = .5f;
-    [SerializeField] Slider m_Slider_Sequencer;
-    [SerializeField]Image m_SequencerMissImage;
-    [SerializeField]Image m_SequencerHandleImage;
-    bool IsSucceshit=>m_Slider_Sequencer.value>m_SequencerMissImage.fillAmount;
-
-
+    [SerializeField] float m_power=.3f;
+    [SerializeField] string m_SuccesHitID = "2_Attack";
+    [SerializeField] float m_hitDuration = 1;
+    [SerializeField] Vector2 m_HitRange;
+    [SerializeField]float m_HitProgress;
+    bool IsSucceshit =>m_HitProgress<=m_HitRange.y && m_HitProgress>m_HitRange.x;
+    bool SuccesHit;
+    float HitPercent;
     //Energy bar
     [SerializeField] Slider m_Slider_Energy;
     [SerializeField]TMP_Text m_Slider_EnergyText;
@@ -71,12 +67,30 @@ public class MessageForgeRoom : PopUp
         InitSliders();
         InitTimer();
         InitEnergyBar();
-        InitSequencer(m_SequenceDuration,m_SequenceSuccesChance);
+        InitSequencer(m_hitDuration);
+
+       
     }
 
     private void OnClose()
     {
-        OnCompleteBase?.Invoke();
+         var param =new MessageChoice.ChoiceParameters();
+         param.MiddleText = "Are you sure you want to exit the forge progress?";
+
+         
+         GameManager.Instance.UIManager.ShowChoice(param,OnChoicemade);
+        
+        void OnChoicemade(MessageChoice.ChoiceResult result)
+        {
+            switch (result.choice)
+            {
+                case TwoStateChoice.Yes:
+                        OnCompleteBase?.Invoke();                
+                break;
+
+            }
+        }
+       
     }
 
     private void InitEnergyBar()
@@ -103,37 +117,48 @@ public class MessageForgeRoom : PopUp
         
     }
 
+
     async Awaitable ForgePressed()
     {
-        bool succesHit = IsSucceshit;
-
+        SuccesHit = IsSucceshit;
+        HitPercent =SuccesHit?1: m_HitProgress>0.5f? Mathf.Abs(.5f-m_HitProgress):m_HitProgress;
         m_ForgeButton.transform.DOKill(true);
         m_ForgeButton.transform.DOPunchScale(Vector2.one*-.1f,0.2f,vibrato:0).SetLink(this.gameObject);     
-        m_Animator.SetTrigger(m_SuccesHitID);
-        m_Container.DOKill(true);
+         
 
-        UpdateEnergy(-m_ActiveStats[StatType.ForgePower]);
+    }
 
-        await Awaitable.WaitForSecondsAsync(.3f);
+    async Awaitable Forge(bool succesHit,float hitPercent)
+    {
+       
+       
+        bool fail = hitPercent<0.1f;
+
+        m_Container.DOKill(true);       
         GameManager.Instance.SoundManager.PlayGivenSound(succesHit?"ForgeHit":"ForgeMiss",pitch: UnityEngine.Random.Range(1,1.1f));
         GameManager.Instance.HapticManager.VibradePreset(succesHit?HapticManager.HapticType.HIT: HapticManager.HapticType.PEEK);
-        if(succesHit) m_Container.DOPunchPosition(Vector2.down*50f*m_power,.3f);
-        if(succesHit)  BlinkForge();
-        if(succesHit)  PlayVFX();
-        if(succesHit)  OnUpdateSlider();
 
-        string message = succesHit? Tools.ShortNumeric(UnityEngine.Random.Range(50,12000)):"<color=red>miss";
-        float scale = UnityEngine.Random.Range(1,1.5f);
+        m_Container.DOPunchPosition(Vector2.down*20f*m_power,.2f);
+        UpdateEnergy(-m_ActiveStats[StatType.ForgePower]);
+        if(succesHit)  BlinkForge();
+         PlayVFX(succesHit);
+         OnUpdateSlider();
+
+        
+        var succesHitMessage = Tools.ShortNumeric(UnityEngine.Random.Range(6000,12000)*hitPercent);
+        var failHitMessage = "<color=orange>"+succesHitMessage;
+        string message =fail? "<color=red>miss": succesHit? succesHitMessage:failHitMessage;
+        float scale =succesHit? UnityEngine.Random.Range(1.5f,2f):1;
         _=SpawnText(m_Forge.transform.position,message,scale);
 
     }
 
     
     // Update is called once per frame
-    void PlayVFX()
+    void PlayVFX(bool isSucces)
     {
         
-        m_ForgeHitEffect.Emit(UnityEngine.Random.Range(10,30));
+        m_ForgeHitEffect.Emit(isSucces ?UnityEngine.Random.Range(10,30): 5);
     }
     void BlinkForge()
     {
@@ -157,12 +182,30 @@ public class MessageForgeRoom : PopUp
         m_ResourceContainer.DOPunchScale(Vector2.one*0.1f,.2f,vibrato:0);
     }
 
-    void InitSequencer(float duration ,float succesChance = .5f)
+    Tween tween;
+    void InitSequencer(float duration=1 )
     {
-        m_Slider_SequencerText.text = $"{Mathf.RoundToInt(succesChance*100)}%";
-        m_SequencerMissImage.fillAmount = 1-succesChance;
-        m_Slider_Sequencer.DOKill();
-        m_Slider_Sequencer.DOValue(1,duration).From(0).SetLoops(-1,LoopType.Yoyo).SetEase(Ease.Linear).SetLink(this.gameObject);
+        
+       
+        float timeCount = .5f;
+        tween = DOVirtual.Float(0, 1, duration, (progress) =>
+        {
+                        m_Animator.SetFloat("Progress",progress);
+                        m_HitProgress = progress;
+            if (m_HitProgress >= timeCount)
+            {
+
+                _=Forge(SuccesHit,HitPercent);
+                SuccesHit=false;
+                HitPercent = 0;
+                timeCount = 2;
+            }
+
+        }).OnStepComplete(() =>
+        {
+            timeCount = .5f;
+
+        }).SetLoops(-1,LoopType.Restart).SetEase(Ease.Linear).SetLink(this.gameObject).SetId(m_Animator);
 
     }
     void InitTimer(int seconds = 120)
@@ -190,7 +233,6 @@ public class MessageForgeRoom : PopUp
         {
             m_Sliders[i].value = i<=sliderIndex?(i+1)*devisionStep: 1 ;
         }
-        
 
     }
     void OnUpdateSlider()
@@ -200,6 +242,7 @@ public class MessageForgeRoom : PopUp
         {
             m_SliderCurrentIndex++;
             InitSliders(m_SliderCurrentIndex);
+
         }
 
 
@@ -246,7 +289,7 @@ public class MessageForgeRoom : PopUp
 async Awaitable SpawnText(Vector3 pos, string message,float size)
         {
             pos = pos+Vector3.right* UnityEngine.Random.value*-2;
-            var rot = new Vector3(0,0,UnityEngine.Random.Range(-30,30));
+            var rot = new Vector3(0,0,UnityEngine.Random.Range(-20,20));
 
             var text = m_PoolText.Get();
             text.text = message;
@@ -259,7 +302,7 @@ async Awaitable SpawnText(Vector3 pos, string message,float size)
             s.Join(text.rectTransform.DOPunchScale(Vector3.one*.2f,.3f));
             s.Join(text.rectTransform.DOLocalMoveY(100,1f));
             s.Join(text.DOFade(0,.2f).SetDelay(.8f));
-            await s.ToAwaitable();
+            await s.ToAwaitable(destroyCancellationToken);
             m_PoolText.Release(text);
 
         }
