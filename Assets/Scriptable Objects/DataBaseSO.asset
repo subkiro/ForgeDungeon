@@ -16,12 +16,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b0342d9291ff24faab806efdb3869eb7, type: 2}
   - {fileID: 11400000, guid: 50399988524004ecb9a43225ff6fce90, type: 2}
   - {fileID: 11400000, guid: f530b1a008e5f44c6a5b7fb39a36468c, type: 2}
+  - {fileID: 11400000, guid: f530b1a008e5f44c6a5b7fb39a36468c, type: 2}
+  - {fileID: 11400000, guid: f530b1a008e5f44c6a5b7fb39a36468c, type: 2}
+  - {fileID: 11400000, guid: f530b1a008e5f44c6a5b7fb39a36468c, type: 2}
   RawResourceSOs:
   - {fileID: 11400000, guid: fe726b20e4b72447bb451e4f4945bd42, type: 2}
+  - {fileID: 11400000, guid: fe726b20e4b72447bb451e4f4945bd42, type: 2}
   - {fileID: 11400000, guid: 68b87239f1c8d47109dd923e0bd0b11a, type: 2}
+  - {fileID: 11400000, guid: 68b87239f1c8d47109dd923e0bd0b11a, type: 2}
+  - {fileID: 11400000, guid: fc6827d312bbd4779b95f0d2b1ff3802, type: 2}
+  - {fileID: 11400000, guid: fc6827d312bbd4779b95f0d2b1ff3802, type: 2}
   - {fileID: 11400000, guid: fc6827d312bbd4779b95f0d2b1ff3802, type: 2}
   EndProductSOs:
   - {fileID: 11400000, guid: 5fea37aabef6549d2be92eea203aa8c3, type: 2}
   - {fileID: 11400000, guid: c69b7f78922004607b92e08b848e8a79, type: 2}
   - {fileID: 11400000, guid: afd11f1f46959423e982583ece94b425, type: 2}
+  - {fileID: 11400000, guid: 1ef1e0a0b74be44b38305e72d2127028, type: 2}
+  - {fileID: 11400000, guid: 1ef1e0a0b74be44b38305e72d2127028, type: 2}
+  - {fileID: 11400000, guid: 1ef1e0a0b74be44b38305e72d2127028, type: 2}
+  - {fileID: 11400000, guid: 1ef1e0a0b74be44b38305e72d2127028, type: 2}
   - {fileID: 11400000, guid: 1ef1e0a0b74be44b38305e72d2127028, type: 2}

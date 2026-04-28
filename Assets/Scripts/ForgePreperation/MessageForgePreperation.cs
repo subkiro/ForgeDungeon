@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class MessageForgePreperation : PopUp
 
 
     [SerializeField] ToggleGroup m_ToggleGroup;
-    List<CategoryToggleCell> m_CategoryToggle;
+    Dictionary<System.Type, CategoryToggleCell> m_CategoryToggle;
 
 
     [SerializeField] Button m_ButtonClear;
@@ -21,80 +22,95 @@ public class MessageForgePreperation : PopUp
     [SerializeField] Button m_ButtonForge;
     public void SetData()
     {
-        m_InvetoryItemCells = m_InventoryItemGroup.GetComponentsInChildren<InventoryItemCell>().ToList();
         m_ButtonClear.onClick.AddListener(OnCleanUp);
         m_ButtonForge.onClick.AddListener(OnForge);
+        InitItems();
         InitToggles();
         _ = ShowAnimation();
 
     }
+
+    private void InitItems()
+    {
+
+        m_InvetoryItemCells = new List<InventoryItemCell>();
+        var allItems = GameManager.Instance.AssetScriptableData.dataBaseSO.AllInventoryItems;
+        foreach (var item in allItems)
+        {
+            var prefab = GameManager.Instance.AssetScriptableData.InventoryItemCell;
+            InventoryItemCell cell = Instantiate(prefab, m_InventoryItemGroup.transform);
+            cell.Initialize(item);
+
+            cell.Button.onClick.AddListener(() => OnSelectItem(item));
+            m_InvetoryItemCells.Add(cell);
+        }
+    }
+
+
     #region Toggle
     void InitToggles()
     {
-        m_CategoryToggle = GetComponentsInChildren<CategoryToggleCell>().ToList();
-        m_CategoryToggle.ForEach(x => x.Initialize(m_ToggleGroup));
+        var toggles = m_ToggleGroup.gameObject.GetComponentsInChildren<CategoryToggleCell>().ToList();
+        m_CategoryToggle = new Dictionary<System.Type, CategoryToggleCell>();
 
-        m_CategoryToggle[0].Toggle.onValueChanged.AddListener((value) => OnToggle_0(m_CategoryToggle[0], value));
-        m_CategoryToggle[1].Toggle.onValueChanged.AddListener((value) => OnToggle_1(m_CategoryToggle[1], value));
-        m_CategoryToggle[2].Toggle.onValueChanged.AddListener((value) => OnToggle_2(m_CategoryToggle[2], value));
+        m_CategoryToggle.Add(typeof(MaterialSO), toggles[0]);
+        m_CategoryToggle.Add(typeof(RawResourceSO), toggles[1]);
+        m_CategoryToggle.Add(typeof(EndProductSO), toggles[2]);
 
-        m_CategoryToggle[0].Toggle.isOn=true;
+        m_CategoryToggle[typeof(MaterialSO)].Toggle.onValueChanged.AddListener(OnMaterialToggle);
+        m_CategoryToggle[typeof(RawResourceSO)].Toggle.onValueChanged.AddListener(OnRawToggle);
+        m_CategoryToggle[typeof(EndProductSO)].Toggle.onValueChanged.AddListener(OnEndToggle);
 
-    }
-
-    void OnToggle_0(CategoryToggleCell toggleCell, bool isOn)
-    {
-        if (isOn) ShowItems<MaterialSO>(toggleCell);
-
-    }
-    void OnToggle_1(CategoryToggleCell toggleCell, bool isOn)
-    {
-        if (isOn) ShowItems<RawResourceSO>(toggleCell);
-
-    }
-    void OnToggle_2(CategoryToggleCell toggleCell, bool isOn)
-    {
-        if (isOn) ShowItems<EndProductSO>(toggleCell);
+        m_CategoryToggle[typeof(MaterialSO)].Toggle.isOn = true;
 
     }
 
-    #endregion
-    void ShowItems<T>(CategoryToggleCell toggleCell) where T : InventoryItemSO
+    public void OnMaterialToggle(bool isOn) => OnToggle(isOn, typeof(MaterialSO));
+    public void OnRawToggle(bool isOn) => OnToggle(isOn, typeof(RawResourceSO));
+    public void OnEndToggle(bool isOn) => OnToggle(isOn, typeof(EndProductSO));
+    void OnToggle(bool isOn, System.Type type)
     {
-        var items = GameManager.Instance.AssetScriptableData.dataBaseSO.InventoryItems<T>();
-        m_InvetoryItemCells.ForEach(x => x.CleanUp());
-        for (int i = 0; i < m_InvetoryItemCells.Count && i < items.Count; i++)
+        if (isOn)
+            RefreshView(type);
+    }
+
+
+    void RefreshView(System.Type type)
+    {
+        foreach (var cell in m_InvetoryItemCells)
         {
-            var cell = m_InvetoryItemCells[i];
-            var data = items[i];
-            cell.Initialize(data);
-            cell.Button.onClick.RemoveAllListeners();
-            cell.Button.onClick.AddListener(() => OnSelectItem(toggleCell, cell.DataSO));
+            cell.gameObject.SetActive(type.IsAssignableFrom(cell.DataSO.GetType()));
         }
     }
-    void OnSelectItem(CategoryToggleCell toggleCell, InventoryItemSO selectedItem)
+
+
+
+
+    #endregion
+
+    void OnSelectItem(InventoryItemSO selectedItem)
     {
-        toggleCell.SetInvetoryItem(selectedItem);
+        m_CategoryToggle[selectedItem.GetType()].SetInvetoryItem(selectedItem);
     }
 
     void OnCleanUp()
     {
-        m_CategoryToggle.ForEach(x => x.CleanUp());
+        m_CategoryToggle.Values.ForEach(x => x.CleanUp());
     }
 
 
     void OnForge()
     {
-       _= OnClose();
+        _ = OnClose();
         var messagePrefab = GameManager.Instance.AssetScriptableData.MessageForgeRoom;
         var message = PopUpManager.Instance.ShowSimple<MessageForgeRoom>(messagePrefab);
         message.SetData();
 
     }
 
-   
+
     #region  Show/Hide Animations
-     private async Awaitable ShowAnimation()
+    private async Awaitable ShowAnimation()
     {
 
         //Show Animation

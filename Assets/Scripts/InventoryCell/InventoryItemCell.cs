@@ -5,17 +5,19 @@ public class InventoryItemCell : MonoBehaviour
 {
     [SerializeField] Image m_BG_Rarity;
     [SerializeField] Image m_MainIcon;
-    
+
     [SerializeField] CanvasGroup m_Group;
     [SerializeField] Button m_Button;
-    public Button Button=>m_Button;
-    
-    public InventoryItemSO DataSO{set;get;} 
+    public Button Button => m_Button;
+
+    public InventoryItemSO DataSO { set; get; }
     public void Initialize(InventoryItemSO itemData)
     {
 
-        DataSO = itemData;        
+        DataSO = itemData;
         m_MainIcon.enabled = true;
+        m_BG_Rarity.enabled = true;
+
         m_MainIcon.sprite = itemData.Icon;
         m_BG_Rarity.color = itemData.RarityData.color;
         Visiblity(1);
@@ -35,7 +37,7 @@ public class InventoryItemCell : MonoBehaviour
 
     public void Visiblity(float alpha)
     {
-                    m_Group.alpha =alpha;
+        m_Group.alpha = alpha;
     }
 
 }
