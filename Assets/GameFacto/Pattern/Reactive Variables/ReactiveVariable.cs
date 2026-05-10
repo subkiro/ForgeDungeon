@@ -44,8 +44,8 @@ public class ReactiveVariable<T>
 
 public class ReactiveList<T>
 {
-    public event Action<T> Added;
-    public event Action<T> Removed;
+    public event Action<T> OnAdded;
+    public event Action<T> OnRemoved;
 
     private List<T> m_elements = new();
 
@@ -54,13 +54,13 @@ public class ReactiveList<T>
     public virtual void Add(T element)
     {
         m_elements.Add(element);
-        Added?.Invoke(element);
+        OnAdded?.Invoke(element);
     }
 
     public virtual void Remove( T element)
     {
         m_elements.Remove(element);
-        Removed?.Invoke(element);
+        OnRemoved?.Invoke(element);
     }
 
 }

@@ -1020,8 +1020,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MessageChoice
   Poolable: 0
-  blureUsed: 1
   ignoreStateChange: 0
+  prevInteractionState: 0
   m_ContentGroup: {fileID: 8941591166633019466}
   TitleText: {fileID: 7299125852628472763}
   MiddleText: {fileID: 8914203612972937766}
@@ -1270,6 +1270,7 @@ GameObject:
   - component: {fileID: 5492431225008607205}
   - component: {fileID: 3833635508465124894}
   - component: {fileID: 8941591166633019466}
+  - component: {fileID: 3083891078431426029}
   m_Layer: 5
   m_Name: Content (1)
   m_TagString: Untagged
@@ -1317,6 +1318,36 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3083891078431426029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4457417435389702788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6029379962728228082
 GameObject:
   m_ObjectHideFlags: 0

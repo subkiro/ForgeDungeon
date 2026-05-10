@@ -79,6 +79,7 @@ public class MessageInventoryMarket : PopUp
 
 
         Tools.Log($"Try to buy <color=orange>{itemToBuy.DisplayName}</color> and update the player inventory");
+        GameManager.Instance.Player.PlayerInvetory.Add(itemToBuy);
     }
 
     void UpdatePreview(InventoryItemSO item)

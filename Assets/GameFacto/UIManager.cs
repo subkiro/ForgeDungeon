@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] Button m_SettingsButtonInGame;
     [SerializeField] Button m_ChoiceButton;
-
+    [SerializeField] Button m_PlayerProfileButton;
     public Button SettingButton => m_SettingsButtonInGame;
 
     Canvas m_UICanvas;
@@ -36,8 +36,13 @@ public class UIManager : MonoBehaviour
         m_UICanvas.worldCamera = GameManager.Instance.CameraManager.MainCamera;
         m_SettingsButtonInGame.onClick.AddListener(ShowSettings);
         m_ChoiceButton.onClick.AddListener(DebugChoiceButton);
+        m_PlayerProfileButton.onClick.AddListener(DebugPlayerProfile);
 
+    }
 
+    private void DebugPlayerProfile()
+    {
+       ShowPlayerProfile();
     }
 
     private void DebugChoiceButton()
@@ -63,7 +68,13 @@ public class UIManager : MonoBehaviour
        
     }
 
+public void ShowPlayerProfile()
+    {
+        var message = PopUpManager.Instance.ShowSimple<MessagePlayerProfile>(GameManager.Instance.AssetScriptableData.MessagePlayerProfile, FadeOutSpeed: 0.01f);
+        message.SetData();
 
+       
+    }
 
 
     // public void CheckForTutorials(ActiveLevelData activeLevel)

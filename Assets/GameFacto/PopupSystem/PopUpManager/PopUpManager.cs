@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public class PopUpManager : SingletonObj<PopUpManager>
 {
@@ -59,10 +60,6 @@ public class PopUpManager : SingletonObj<PopUpManager>
 
 
     public List<PopUp> poolList = new List<PopUp>();
-    public GameObject BlurUI_Prefab;
-    UIBlur m_UiBlur;
-    private bool m_WithBlur;
-    private StateManager.State prevState;
     public bool IsPopupOpen => poolList.Count > 0;
 
 
@@ -79,56 +76,22 @@ public class PopUpManager : SingletonObj<PopUpManager>
         }
 
     }
-    public T Show<T>(GameObject prefab, Transform parent = null, bool withBlur = true, float FadeMoveY_Start = 50,float FadeMoveY_End = 0, float FadeSpeed = 0.2f,  bool KeepSameState = false, params GameObject[] skipBlureList)
-    {
-        Transform parentObject;
-        if (parent == null) parentObject = this.transform;
-        else { parentObject = parent; }
-        m_WithBlur = withBlur;
-
-
-        if (m_WithBlur)
-        {
-            SkipBlureList(skipBlureList, false);
-            ShowBlur(parentObject);
-            SkipBlureList(skipBlureList, true);
-        }
-
-
-        T popUp = DequeFromPoolPrefabs<T>(prefab, parentObject)  ;  
-        
-        RectTransform viewRect = (popUp as PopUp).GetComponent<RectTransform>();
-        CanvasGroup MainInfoGroup = (popUp as PopUp).GetComponent<CanvasGroup>();
-
-        Sequence s = DOTween.Sequence();
-        s.SetId(popUp).SetUpdate(true);
-        s.Join(viewRect?.DOAnchorPosY(FadeMoveY_End, FadeSpeed).From(Vector2.one * FadeMoveY_Start).SetEase(Ease.OutBack));
-        s.Join(MainInfoGroup?.DOFade(1, FadeSpeed));        //All prefabs should implement interface WindowUI
-
-
-        (popUp as PopUp).Show(() => Hide(popUp as PopUp,FadeMoveY_Start,FadeSpeed));
-        (popUp as PopUp).OnCompleteBase = () => Hide(popUp as PopUp, FadeMoveY_Start, FadeSpeed);
-        (popUp as PopUp).blureUsed = withBlur;
-
-        AddToPool(popUp as PopUp, KeepSameState);
-
-      
-        
-
-        return popUp; 
-    }
-
    
-    public T ShowSimple<T>(GameObject prefab, Transform parent = null, float FadeInSpeed = 0.1f, float FadeOutSpeed = 0f, bool KeepSameState = false)
+   
+    public T ShowSimple<T>(GameObject prefab, Transform parent = null, float FadeInSpeed = 0.1f, float FadeOutSpeed = 0f)
     {
         Transform parentObject;
         if (parent == null) parentObject = this.transform;
         else { parentObject = parent; }
-        GameManager.Instance.InteractionState = InteractionState.UI;
 
+        
 
 
         T popUp = DequeFromPoolPrefabs<T>(prefab, parentObject);
+        PopUp view = popUp as PopUp;
+        view.prevInteractionState = GameManager.Instance.InteractionState;
+        GameManager.Instance.InteractionState = InteractionState.UI;
+
         RectTransform viewRect = (popUp as PopUp).GetComponent<RectTransform>();
         CanvasGroup MainInfoGroup = (popUp as PopUp).GetComponent<CanvasGroup>();
 
@@ -142,55 +105,14 @@ public class PopUpManager : SingletonObj<PopUpManager>
         //All prefabs should implement interface WindowUI
         (popUp as PopUp).Show(() => FastHide(popUp as PopUp, FadeOutSpeed));
         (popUp as PopUp).OnCompleteBase = () => FastHide(popUp as PopUp, FadeOutSpeed);
-        (popUp as PopUp).blureUsed = false;
 
 
-        AddToPool(popUp as PopUp, KeepSameState);
+        AddToPool(popUp as PopUp);
         return (popUp);
     }
 
 
  
-    public void SkipBlureList(GameObject[] skipBlureList, bool enable)
-    {
-
-        if (skipBlureList == null) return;
-
-        foreach (GameObject item in skipBlureList)
-        {
-            item.SetActive(enable);
-        }
-
-    }
-    public void ShowBlur(Transform parent = null, bool isCustom = false, float Delay = 0f)
-    {
-        Transform parentObject;
-        if (parent == null) parentObject = this.transform;
-        else { parentObject = parent; }
-
-        
-        if (m_UiBlur != null)
-        {
-            m_UiBlur.transform.SetParent(parentObject);
-            if (isCustom) m_UiBlur.transform.SetAsFirstSibling(); else m_UiBlur.transform.SetAsLastSibling();
-            m_UiBlur.Initialize(Delay);
-          
-        }
-        else
-        {
-
-            m_UiBlur = Instantiate(BlurUI_Prefab, parentObject).GetComponent<UIBlur>();
-            if (isCustom) m_UiBlur.transform.SetAsFirstSibling(); else m_UiBlur.transform.SetAsLastSibling();
-            m_UiBlur.Initialize(Delay);
-         
-        }
-
-
-    }
-    public void ClearBlur()
-    {
-        if (m_UiBlur != null) m_UiBlur.ShowBluredImage(false);
-    }
 
 
 
@@ -203,31 +125,11 @@ public class PopUpManager : SingletonObj<PopUpManager>
         }
         GameManager.Instance.InteractionState = InteractionState.INGAME;
     }
-    public void Hide(PopUp view, float FadeMoveYPos = 50, float FadeSpeed = 0.1f)
-    {
-        if (view == null) return;
-        GameManager.Instance.InteractionState = InteractionState.INGAME;
-        if (view.blureUsed) ClearBlur();
-        RectTransform viewRect = (view).GetComponent<RectTransform>();
-        CanvasGroup MainInfoGroup = (view).GetComponent<CanvasGroup>();
-
-
-
-        view?.GetComponentInChildren<UIBlur>()?.gameObject.SetActive(false);
-        Sequence s = DOTween.Sequence();
-        s.SetId(view).SetUpdate(true);
-        s.Join( MainInfoGroup?.DOFade(0, FadeSpeed));
-        s.Join( viewRect?.DOAnchorPosY(-FadeMoveYPos, FadeSpeed).SetEase(Ease.InFlash));
-        s.OnComplete(() => {
-            DestroyOnComplete(view); 
-        });
-    }
     public void FastHide(PopUp view,float fadeOutSpeed = 0, bool keepSameState = false)
     {
         if (view == null) return;
-        if (view.blureUsed) ClearBlur();
         CanvasGroup MainInfoGroup = (view).GetComponent<CanvasGroup>();
-        if(!keepSameState)  GameManager.Instance.InteractionState = InteractionState.INGAME;
+        GameManager.Instance.InteractionState = view.prevInteractionState;
 
         Sequence s = DOTween.Sequence();
         s.SetId(view).SetUpdate(true);
@@ -260,16 +162,8 @@ public class PopUpManager : SingletonObj<PopUpManager>
 
 
     //Pooling Functions
-    public void AddToPool(PopUp view, bool keepSameState = false)
+    public void AddToPool(PopUp view)
     {
-        view.ignoreStateChange = keepSameState;
-
-        if (poolList.Count == 0) {
-            prevState = StateManager.Instance.currentState;
-           
-            if(!keepSameState)
-            StateManager.Instance.SetState(StateManager.State.uiView);
-        }
 
         poolList.Add(view);
 
@@ -286,7 +180,6 @@ public class PopUpManager : SingletonObj<PopUpManager>
 
             DequeueNext();
             BackButtonReset();
-          if(!view.ignoreStateChange)  StateManager.Instance.SetState(prevState);
 
         }
 

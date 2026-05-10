@@ -9,6 +9,10 @@ public class Player : MonoBehaviour
     public string PlayerID;
     public string PlayerName;
 
+    private ReactiveList<InventoryItemSO> m_PlayerInventory = new ReactiveList<InventoryItemSO>();
+    public ReactiveList<InventoryItemSO> PlayerInvetory=>m_PlayerInventory;
+
+
 
 
 

@@ -9,8 +9,7 @@ public  abstract class PopUp : MonoBehaviour
 {
     public bool Poolable = true;
     public UnityAction OnCompleteBase;
-    public bool blureUsed = false;
-    public bool ignoreStateChange = false;
+    public InteractionState prevInteractionState;
     public virtual void Show(UnityAction OnComplete) { 
     
     }

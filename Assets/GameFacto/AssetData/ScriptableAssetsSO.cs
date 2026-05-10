@@ -25,8 +25,10 @@ public class ScriptableAssetsSO : ScriptableObject
     public GameObject MessageForgePreperation;
     [TabGroup("PopUp")]
     public GameObject MessageInventoryMarket;
-
-
+ [  TabGroup("PopUp")]
+    public GameObject MessageItemInfo;
+    [TabGroup("PopUp")]
+    public GameObject MessagePlayerProfile;
     [TabGroup("Prefabs")]
     public RewardUiItem RewardUIItem;
     [TabGroup("Prefabs")]
