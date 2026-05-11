@@ -378,6 +378,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.000042105155
       objectReference: {fileID: 0}
+    - target: {fileID: 2109163454273670813, guid: 672acbe2578424dd49c089468159e10e, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 33
+      objectReference: {fileID: 0}
     - target: {fileID: 4497372680811913625, guid: 672acbe2578424dd49c089468159e10e, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -465,7 +469,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1680858970328124133, guid: 672acbe2578424dd49c089468159e10e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 825124878261551303}
   m_SourcePrefab: {fileID: 100100000, guid: 672acbe2578424dd49c089468159e10e, type: 3}
 --- !u!225 &4898717978577447108 stripped
 CanvasGroup:
@@ -477,3 +484,16 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4497372680811913625, guid: 672acbe2578424dd49c089468159e10e, type: 3}
   m_PrefabInstance: {fileID: 7770147321421331024}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8973008299228836021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1680858970328124133, guid: 672acbe2578424dd49c089468159e10e, type: 3}
+  m_PrefabInstance: {fileID: 7770147321421331024}
+  m_PrefabAsset: {fileID: 0}
+--- !u!222 &825124878261551303
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973008299228836021}
+  m_CullTransparentMesh: 1
