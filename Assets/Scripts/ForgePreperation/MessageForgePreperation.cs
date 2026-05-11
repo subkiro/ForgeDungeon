@@ -10,7 +10,7 @@ public class MessageForgePreperation : PopUp
 
     [SerializeField] CanvasGroup m_ContentGroup;
     [SerializeField] CanvasGroup m_InventoryItemGroup;
-    List<InventoryItemCell> m_InvetoryItemCells;
+    List<ItemCellView> m_InvetoryItemCells;
 
 
     [SerializeField] ToggleGroup m_ToggleGroup;
@@ -33,15 +33,15 @@ public class MessageForgePreperation : PopUp
     private void InitItems()
     {
 
-        m_InvetoryItemCells = new List<InventoryItemCell>();
+        m_InvetoryItemCells = new List<ItemCellView>();
         var allItems = GameManager.Instance.AssetScriptableData.dataBaseSO.AllInventoryItems;
         foreach (var item in allItems)
         {
-            var prefab = GameManager.Instance.AssetScriptableData.InventoryItemCell;
-            InventoryItemCell cell = Instantiate(prefab, m_InventoryItemGroup.transform);
+            var prefab = GameManager.Instance.AssetScriptableData.ItemCell_View;
+            ItemCellView cell = Instantiate(prefab, m_InventoryItemGroup.transform);
             cell.Initialize(item);
-
-            cell.Button.onClick.AddListener(() => OnSelectItem(item));
+            var button = cell.gameObject.AddComponent<Button>();
+            button.onClick.AddListener(() => OnSelectItem(item));
             m_InvetoryItemCells.Add(cell);
         }
     }

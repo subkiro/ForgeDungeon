@@ -67,9 +67,8 @@ public class ReactiveList<T>
 
 public class ReactiveStackableDictionary<T>
 {
-    public event Action<T,int> OnAdded;
-    public event Action<T,int> OnRemoved;
-
+    public event Action<KeyValuePair<T,int>,int> OnAdded;
+    public event Action<KeyValuePair<T, int>,int> OnRemoved;
     private Dictionary<T,int> m_elements = new();
 
     public IReadOnlyDictionary<T,int> Elements =>m_elements;
@@ -86,19 +85,29 @@ public class ReactiveStackableDictionary<T>
             m_elements.Add(key,value);
         }
 
-        OnAdded?.Invoke(key,value);
+        var valuePair = new KeyValuePair<T, int>(key, m_elements[key]);
+        OnAdded?.Invoke(valuePair,value);
     }
 
-    public virtual void Remove( T element,int amount = 1)
+    public virtual void Remove( T key,int amount = 1)
     {
-        if (m_elements.ContainsKey(element))
+        if (m_elements.ContainsKey(key))
         {
-            if(m_elements[element]>amount) m_elements[element]-=amount;
+            int totalValue = m_elements[key];
+            if(totalValue>amount) {
+
+                totalValue-=amount;
+                m_elements[key]=totalValue;
+                }
             else
             {
-                     m_elements.Remove(element);
+                     m_elements.Remove(key);
+                     totalValue = 0;
+
             } 
-            OnRemoved?.Invoke(element,amount);
+            var valuePair = new KeyValuePair<T, int>(key, totalValue);
+
+            OnRemoved?.Invoke(valuePair,amount);
         }
         
     }

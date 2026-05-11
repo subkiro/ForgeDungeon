@@ -7,7 +7,7 @@ public class CategoryToggleCell : MonoBehaviour
     [SerializeField] Toggle m_Toggle;
     public Toggle Toggle=>m_Toggle;
    [SerializeField] Image m_Plus;
-   [SerializeField] InventoryItemCell m_InventoryItemCell;
+   [SerializeField] ItemCellView m_InventoryItemCell;
    [SerializeField] TMP_Text m_Title;
 
     public void Initialize(ToggleGroup group = null)

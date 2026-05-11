@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryView : MonoBehaviour
 {
     [SerializeField] CanvasGroup m_Group;
     [SerializeField] CanvasGroup m_ContainerGroup;
 
-   [SerializeField] bool m_Interactable=true;
-
+    [SerializeField] bool m_Interactable=true;
+    private Dictionary<InventoryItemSO,ItemCellView>m_elements = new();
 
     void Awake()
     {
@@ -17,27 +20,70 @@ public class InventoryView : MonoBehaviour
     public void Initialize()
     {
         GameManager.Instance.Player.PlayerInvetory.OnAdded+=OnAdded;
+        GameManager.Instance.Player.PlayerInvetory.OnRemoved+=OnRemoved;
+
         LoadInventory();
     }
+
+    private void OnRemoved(KeyValuePair<InventoryItemSO, int> keyValuePair, int amountRemoved)
+    {
+        InventoryItemSO item = keyValuePair.Key;
+        int totalAmount = keyValuePair.Value;
+        var cell = m_elements[item];
+
+        Tools.Log($"Player Inventory: {cell.DataSO.DisplayName} Removed from Inventory",Color.red);
+
+        if (totalAmount == 0)
+        {
+            m_elements.Remove(item);
+            Destroy(cell.gameObject);
+
+        }
+        else
+        {
+            m_elements[item].Initialize(item,totalAmount);
+        }
+    }
+
     private void LoadInventory()
     {
         foreach(var item in GameManager.Instance.Player.PlayerInvetory.Elements)
         {
-            OnAdded(item.Key,item.Value);
-
+     
+            OnAdded(item,0);
+                   
         }
     }
-    private void OnAdded(InventoryItemSO item,int amount)
+    private void OnAdded(KeyValuePair<InventoryItemSO,int> keyValuePair,int amountAdded)
     {
-        Tools.Log($"Player Inventory: {item.DisplayName} Added to Inventory",Color.green);
-        var prefab = GameManager.Instance.AssetScriptableData.InventoryItemCell;
-        var cell = Instantiate(prefab,m_ContainerGroup.transform);
-        cell.Initialize(item);
-        if(m_Interactable) cell.Button.onClick.AddListener(()=>OnSelect(cell));
+        InventoryItemSO item = keyValuePair.Key;
+        int totalAmount = keyValuePair.Value;
+
+        ItemCellView cell;
+
+        if (!m_elements.ContainsKey(item))
+        {
+           var prefab = GameManager.Instance.AssetScriptableData.ItemCell_View;
+           cell = Instantiate(prefab,m_ContainerGroup.transform); 
+           m_elements.Add(item,cell);
+        }
+        
+        m_elements[item].Initialize(item,totalAmount);
+
+        Tools.Log($"Player Inventory: {item.DisplayName} Added {amountAdded} to Inventory",Color.green);
+
+        if(m_Interactable) {
+            if(!m_elements[item].gameObject.TryGetComponent(out Button button))
+            {
+                button = m_elements[item].gameObject.AddComponent<Button>();
+                button.onClick.AddListener(()=>OnSelect(m_elements[item]));
+            }
+            
+        }
 
     }
 
-    private void OnSelect(InventoryItemCell itemCell)
+    private void OnSelect(ItemCellView itemCell)
     {
         var prefab = GameManager.Instance.AssetScriptableData.MessageItemInfo;
         var cell = PopUpManager.Instance.ShowSimple<MessageItemInfo>(prefab);
@@ -52,7 +98,6 @@ public class InventoryView : MonoBehaviour
             {
                 case TwoStateChoice.Yes:
                 GameManager.Instance.Player.PlayerInvetory.Remove(itemCell.DataSO);
-                OnRemoved(itemCell);
                 break;
                 
                 
@@ -60,19 +105,13 @@ public class InventoryView : MonoBehaviour
         }
     }
 
-    private void OnRemoved(InventoryItemCell cell)
-    {
-        Tools.Log($"Player Inventory: {cell.DataSO.DisplayName} Removed from Inventory",Color.red);
-
-        GameManager.Instance.Player.PlayerInvetory.Remove(cell.DataSO);
-        Destroy(cell.gameObject);
-
-    }
-
+    
     
      private void OnDestroy()
     {
         GameManager.Instance.Player.PlayerInvetory.OnAdded-=OnAdded;
+        GameManager.Instance.Player.PlayerInvetory.OnRemoved-=OnRemoved;
+
     }
 
 

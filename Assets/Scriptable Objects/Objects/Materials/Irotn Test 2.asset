@@ -21,5 +21,9 @@ MonoBehaviour:
   - Stat_Type: 1
     Stat_Value: 15
     isConstant: 0
+  Cost:
+    Stat_Type: 4
+    Stat_Value: 22
+    isConstant: 0
   IsStackable: 0
   quality: 0

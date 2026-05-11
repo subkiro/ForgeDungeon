@@ -16,11 +16,14 @@ MonoBehaviour:
   DisplayName: 
   Descripton: here is some descripton of the item that we should put
   Icon: {fileID: 0}
-  Background: {fileID: 0}
   Rarity: 0
   BasicStats:
   - Stat_Type: 1
     Stat_Value: 15
+    isConstant: 0
+  Cost:
+    Stat_Type: 4
+    Stat_Value: 22
     isConstant: 0
   IsStackable: 0
   quality: 0

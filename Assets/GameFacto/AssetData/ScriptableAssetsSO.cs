@@ -34,8 +34,7 @@ public class ScriptableAssetsSO : ScriptableObject
     [TabGroup("Prefabs")]
 
     public ItemCellView ItemCell_View;
-    [TabGroup("Prefabs")]
-    public InventoryItemCell InventoryItemCell;
+
     [TabGroup("Prefabs")]
 
     public InventoryItemCell_Toggle InventoryItemCell_Toggle;
