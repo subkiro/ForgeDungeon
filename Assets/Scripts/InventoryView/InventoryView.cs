@@ -97,7 +97,7 @@ public class InventoryView : MonoBehaviour
             switch (choice)
             {
                 case TwoStateChoice.Yes:
-                GameManager.Instance.Player.PlayerInvetory.Remove(itemCell.DataSO);
+                //GameManager.Instance.Player.PlayerInvetory.Remove(itemCell.DataSO);
                 break;
                 
                 

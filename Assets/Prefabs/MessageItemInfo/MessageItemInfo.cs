@@ -11,17 +11,20 @@ public class MessageItemInfo : PopUp
 
     [SerializeField] CanvasGroup m_ContentGroup;
     [SerializeField] ItemCellView m_PreviewCellView;
-    [SerializeField] Button m_SellButton_Yes;
+     SellPanel m_SellPanel;
     [SerializeField] Button m_CloseButton_No;
 
     [SerializeField] TMP_Text m_PreviewDescription;
     private UnityAction<TwoStateChoice> m_onChoiceAction;
     public void SetData(InventoryItemSO item,UnityAction<TwoStateChoice> _OnClose)
     {
+        m_SellPanel = this.GetComponentInChildren<SellPanel>();
+        m_SellPanel.SetData(item);
         m_onChoiceAction = _OnClose;
         m_PreviewCellView.Initialize(item);
+
         m_CloseButton_No.onClick.AddListener(()=>_=OnClose(TwoStateChoice.No));
-        m_SellButton_Yes.onClick.AddListener(()=>_=OnClose(TwoStateChoice.Yes));
+        m_SellPanel.ButtonSell.onClick.AddListener(()=>_=OnClose(TwoStateChoice.Yes));
 
         _=ShowAnimation();
     }

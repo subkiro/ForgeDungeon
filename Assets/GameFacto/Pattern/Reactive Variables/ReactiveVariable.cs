@@ -91,6 +91,8 @@ public class ReactiveStackableDictionary<T>
 
     public virtual void Remove( T key,int amount = 1)
     {
+        if(amount==0) return;
+        
         if (m_elements.ContainsKey(key))
         {
             int totalValue = m_elements[key];
