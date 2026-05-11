@@ -15,7 +15,7 @@ public class MessageInventoryMarket : PopUp
     [SerializeField] ItemCellView m_PreviewCellView;
     [SerializeField] Button m_PreviewBuyButton;
     [SerializeField] TMP_Text m_PreviewDescription;
-
+    [SerializeField] TMP_Text m_PreviewCost;
 
     [SerializeField] CanvasGroup m_ContentGroup;
     [SerializeField] CanvasGroup m_InventoryItemGroup;
@@ -89,6 +89,8 @@ public class MessageInventoryMarket : PopUp
         string rarity = $"<color=#{ColorUtility.ToHtmlStringRGB(item.RarityData.color)}> {item.RarityData.Rarity}</color>";
         string final = $"{itemName} {rarity}\n{ item.Descripton}";
         m_PreviewDescription.text = final.TrimStart();
+
+        m_PreviewCost.text = $"{item.Cost.Stat_Value} <sprite name=coin>";
         m_PreviewCellView.Icon.rectTransform.DOPunchScale(Vector3.one*.1f,.1f,vibrato:0).SetLink(this.gameObject);
 
     }

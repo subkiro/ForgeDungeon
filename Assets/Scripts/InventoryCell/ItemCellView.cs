@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +9,10 @@ public class ItemCellView : MonoBehaviour
     public Image Icon=>m_MainIcon;
     [SerializeField] CanvasGroup m_Group;
 
+    public TMP_Text m_InfoText;
+
     public InventoryItemSO DataSO { set; get; }
-    public void Initialize(InventoryItemSO itemData)
+    public void Initialize(InventoryItemSO itemData,int amount = 1)
     {
 
         DataSO = itemData;
@@ -19,7 +22,7 @@ public class ItemCellView : MonoBehaviour
 
         m_MainIcon.sprite = itemData.Icon;
         m_BG_Rarity.color = itemData.RarityData.color;
-
+        SetInfoText(amount);
 
         Visiblity(1);
     }
@@ -39,6 +42,11 @@ public class ItemCellView : MonoBehaviour
     public void Visiblity(float alpha)
     {
         m_Group.alpha = alpha;
+    }
+
+    private void SetInfoText(int amount)
+    {  
+        m_InfoText.text = amount==1?"":amount.ToString();
     }
 
 }

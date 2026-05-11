@@ -1902,13 +1902,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MessageInventoryMarket
   Poolable: 0
-  ignoreStateChange: 0
   prevInteractionState: 0
   m_CloseButton: {fileID: 1783245538793118136}
   m_PreviewGroup: {fileID: 3238237968279596359}
   m_PreviewCellView: {fileID: 4689216814429705854}
   m_PreviewBuyButton: {fileID: 7699234255102411013}
   m_PreviewDescription: {fileID: 1164533404292167171}
+  m_PreviewCost: {fileID: 3126240886079920686}
   m_ContentGroup: {fileID: 829468860768419073}
   m_InventoryItemGroup: {fileID: 275637479972511306}
   m_ToggleGroupRect: {fileID: 779968809300897241}
@@ -2535,6 +2535,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 900704450010453838}
     m_Modifications:
+    - target: {fileID: 63537524573074871, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}
+      propertyPath: m_Name
+      value: CostText
+      objectReference: {fileID: 0}
+    - target: {fileID: 516839214623906891, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.105882354
+      objectReference: {fileID: 0}
     - target: {fileID: 3778225828319640248, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}
       propertyPath: m_TargetGraphic
       value: 
@@ -2627,6 +2635,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Ccost
       objectReference: {fileID: 0}
+    - target: {fileID: 8216834577581565931, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}
+      propertyPath: m_fontSize
+      value: 77
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216834577581565931, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 77
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2637,6 +2653,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6080041973882165613, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}
   m_PrefabInstance: {fileID: 6443151362032008645}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3126240886079920686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8216834577581565931, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}
+  m_PrefabInstance: {fileID: 6443151362032008645}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &6793260581825257870 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 516839214623906891, guid: c401fd39579274c3bad17ad8f35f6e3c, type: 3}

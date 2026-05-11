@@ -23,11 +23,11 @@ public class InventoryView : MonoBehaviour
     {
         foreach(var item in GameManager.Instance.Player.PlayerInvetory.Elements)
         {
-            OnAdded(item);
+            OnAdded(item.Key,item.Value);
 
         }
     }
-    private void OnAdded(InventoryItemSO item)
+    private void OnAdded(InventoryItemSO item,int amount)
     {
         Tools.Log($"Player Inventory: {item.DisplayName} Added to Inventory",Color.green);
         var prefab = GameManager.Instance.AssetScriptableData.InventoryItemCell;

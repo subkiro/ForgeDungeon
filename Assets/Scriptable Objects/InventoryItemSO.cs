@@ -14,6 +14,7 @@ public abstract class InventoryItemSO : ScriptableObject
     [SerializeField] Rarity Rarity;
     public List<Stats> BasicStats;
 
+    public Stats Cost = new Stats{Stat_Type=StatType.Coin};
 
 
 

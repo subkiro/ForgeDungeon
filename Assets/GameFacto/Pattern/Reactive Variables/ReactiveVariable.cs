@@ -64,6 +64,50 @@ public class ReactiveList<T>
     }
 
 }
+
+public class ReactiveStackableDictionary<T>
+{
+    public event Action<T,int> OnAdded;
+    public event Action<T,int> OnRemoved;
+
+    private Dictionary<T,int> m_elements = new();
+
+    public IReadOnlyDictionary<T,int> Elements =>m_elements;
+
+    public virtual void Add(T key,int value=1)
+    {
+        
+        if (m_elements.ContainsKey(key))
+        {
+            m_elements[key]+=value;
+        }
+        else
+        {
+            m_elements.Add(key,value);
+        }
+
+        OnAdded?.Invoke(key,value);
+    }
+
+    public virtual void Remove( T element,int amount = 1)
+    {
+        if (m_elements.ContainsKey(element))
+        {
+            if(m_elements[element]>amount) m_elements[element]-=amount;
+            else
+            {
+                     m_elements.Remove(element);
+            } 
+            OnRemoved?.Invoke(element,amount);
+        }
+        
+    }
+
+
+}
+
+
+
 public abstract class EqualityComparer<T> : IEqualityComparer<T>
 {
 
