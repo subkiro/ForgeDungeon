@@ -55,12 +55,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 79081581835009169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90ab392b966f13049b4e5e3d5b67a6af, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a433d743822c4d3e80f6cd730df6f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RewardUiItem
-  AmountText: {fileID: 1961313474868465975}
-  RewardIcon: {fileID: 8694645371427305742}
-  RewardType: 7
+  AmountText: {fileID: 0}
+  RewardIcon: {fileID: 0}
+  RewardType: 0
   RewardData:
     RewardType: 0
     Amount: 0
@@ -370,7 +370,6 @@ GameObject:
   - component: {fileID: 4600167537207548209}
   - component: {fileID: 7962528021828190814}
   - component: {fileID: 7555259718085665556}
-  - component: {fileID: 5193418548496087753}
   m_Layer: 5
   m_Name: Fx_Star
   m_TagString: Untagged
@@ -5229,28 +5228,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4497807691840305721}
   m_CullTransparentMesh: 0
---- !u!114 &5193418548496087753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4497807691840305721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 022f88edfdfa44b65afcefde3c9d854e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: dbef6ab02e5dc455fb168c40b7d060af, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  fixedTime: 1
-  use3dRotation: 0
 --- !u!1 &6920500772788251449
 GameObject:
   m_ObjectHideFlags: 0
@@ -5491,8 +5468,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 16
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
-  m_sharedMaterial: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e78ef0d5545984f7a8bcb9f4c3ef4adb, type: 2}
+  m_sharedMaterial: {fileID: 4521261154298394455, guid: e78ef0d5545984f7a8bcb9f4c3ef4adb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5516,7 +5493,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 110.2
+  m_fontSize: 126
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
