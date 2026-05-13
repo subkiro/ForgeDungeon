@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button m_SettingsButtonInGame;
     [SerializeField] Button m_ChoiceButton;
     [SerializeField] Button m_PlayerProfileButton;
+    [SerializeField] Button m_RPSButton;
     public Button SettingButton => m_SettingsButtonInGame;
 
     Canvas m_UICanvas;
@@ -37,18 +38,19 @@ public class UIManager : MonoBehaviour
         m_SettingsButtonInGame.onClick.AddListener(ShowSettings);
         m_ChoiceButton.onClick.AddListener(DebugChoiceButton);
         m_PlayerProfileButton.onClick.AddListener(DebugPlayerProfile);
+        m_RPSButton.onClick.AddListener(ShowRPS);
 
     }
 
     private void DebugPlayerProfile()
     {
-       ShowPlayerProfile();
+        ShowPlayerProfile();
     }
 
     private void DebugChoiceButton()
     {
-        ShowChoice(default,OnChoiceMade);
-         void OnChoiceMade(MessageChoice.ChoiceResult choice)
+        ShowChoice(default, OnChoiceMade);
+        void OnChoiceMade(MessageChoice.ChoiceResult choice)
         {
             Tools.Log(choice.choice.ToString());
         }
@@ -60,22 +62,28 @@ public class UIManager : MonoBehaviour
         message.SetData();
     }
 
-    public void ShowChoice(MessageChoice.ChoiceParameters parametes, UnityAction<MessageChoice.ChoiceResult> result )
+    public void ShowChoice(MessageChoice.ChoiceParameters parametes, UnityAction<MessageChoice.ChoiceResult> result)
     {
         var message = PopUpManager.Instance.ShowSimple<MessageChoice>(GameManager.Instance.AssetScriptableData.MessageChoice, FadeOutSpeed: 0.01f);
-        message.SetData(parametes,result);
+        message.SetData(parametes, result);
 
-       
+
     }
 
-public void ShowPlayerProfile()
+    public void ShowPlayerProfile()
     {
         var message = PopUpManager.Instance.ShowSimple<MessagePlayerProfile>(GameManager.Instance.AssetScriptableData.MessagePlayerProfile, FadeOutSpeed: 0.01f);
         message.SetData();
 
-       
-    }
 
+    }
+    public void ShowRPS()
+    {
+        var message = PopUpManager.Instance.ShowSimple<MessageRPS>(GameManager.Instance.AssetScriptableData.MessageRPS, FadeOutSpeed: 0.01f);
+        message.SetData();
+
+
+    }
 
     // public void CheckForTutorials(ActiveLevelData activeLevel)
     // {

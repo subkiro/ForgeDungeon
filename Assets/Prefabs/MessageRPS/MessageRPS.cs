@@ -9,9 +9,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MessageRPS : MonoBehaviour
+public class MessageRPS : PopUp
 {
 
+    [SerializeField] CanvasGroup m_ContentGroup;
     [SerializeField] RectTransform CenterDeckRect_player;
     [SerializeField] RectTransform CenterDeckRect_opponet;
 
@@ -29,9 +30,10 @@ public class MessageRPS : MonoBehaviour
     private int m_winCount;
     private int m_lostCount;
     private int m_drawCount;
-    private void Awake()
+    public void SetData()
     {
         SetupCards();
+        ShowAnimation();
     }
     [Button]
     async void ShowDebug()
@@ -61,8 +63,9 @@ public class MessageRPS : MonoBehaviour
     {
         foreach (var item in PlayerCardsData)
         {
-            var button = item.card.gameObject.AddComponent<Button>();
+            var button = item.card.Container.gameObject.AddComponent<Button>();
             button.onClick.AddListener(() => SelectCardAction(item));
+            item.card.Interactable = false;
         }
 
     }
@@ -360,7 +363,51 @@ public class MessageRPS : MonoBehaviour
         };
     }
     #endregion
+
+
+    #region  Show/Hide Animations
+    private void ShowAnimation()
+    {
+
+        //Show Animation
+        Sequence s = DOTween.Sequence();
+        s.SetId(this);
+        s.OnStart(() =>
+        {
+            GameManager.Instance.SoundManager.PlayGivenSound("Pop", volume: 0.2f);
+        });
+        ;
+        s.Append(m_ContentGroup.DOFade(1, 0.2f).From(0));
+        s.Join(m_ContentGroup.transform.RectTransform().DOPunchScale(new Vector3(0.1f, 0.1f, 0), 0.2f, vibrato: 8).SetEase(Ease.OutElastic));
+
+        
+    }
+    private async Awaitable OnClose()
+    {
+        m_ContentGroup.interactable = false;
+        await HideAnimation().ToAwaitable();
+        OnCompleteBase?.Invoke();
+    }
+
+    private Tween HideAnimation()
+    {
+
+        //Show Animation
+        Sequence s = DOTween.Sequence();
+        s.SetId(this);
+        s.OnStart(() =>
+        {
+            GameManager.Instance.SoundManager.PlayGivenSound("Sweesh", volume: 0.1f);
+        });
+        ;
+        s.Append(m_ContentGroup.DOFade(0, 0.1f));
+        s.Join(m_ContentGroup.transform.RectTransform().DOScale(0.8f, 0.1f).SetEase(Ease.InBack));
+
+        return s;
+    }
+    #endregion
 }
+
 
 [Serializable]
 public class CardsData

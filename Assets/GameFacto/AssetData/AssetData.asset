@@ -23,9 +23,9 @@ MonoBehaviour:
   MessageInventoryMarket: {fileID: 7408096767735197606, guid: eb2cb602b15c743bdb66bff0055e35e4, type: 3}
   MessageItemInfo: {fileID: 6585394244690565718, guid: 77490bd5cfe9649c3acb6e23232f8698, type: 3}
   MessagePlayerProfile: {fileID: 551618624504502396, guid: 34e8cb1763dbd4156b7bb210d322c4b7, type: 3}
+  MessageRPS: {fileID: 5598557612617132748, guid: dd8084747057d48598e6b9bdcf28faff, type: 3}
   RewardUIItem: {fileID: -8130640444198496008, guid: 5c08d158de5049d4ab0dae733718ddc6, type: 3}
   ItemCell_View: {fileID: 7531612583663953635, guid: 75adf3656040f40fbad8f8012ac6fc19, type: 3}
-  InventoryItemCell: {fileID: 1885494030418231684, guid: 8ae3ad4eef5a9424ca122880dfcd7325, type: 3}
   InventoryItemCell_Toggle: {fileID: 3623110754705474942, guid: 4e161811e636646d1a09d4ce7d765032, type: 3}
   Coin_Icon: {fileID: 21300000, guid: fa3eea7e98818a544a2587d38f3bab14, type: 3}
   Default_EmptyIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

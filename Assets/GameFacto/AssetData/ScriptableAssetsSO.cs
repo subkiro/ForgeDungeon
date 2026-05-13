@@ -29,6 +29,8 @@ public class ScriptableAssetsSO : ScriptableObject
     public GameObject MessageItemInfo;
     [TabGroup("PopUp")]
     public GameObject MessagePlayerProfile;
+    [TabGroup("PopUp")]
+    public GameObject MessageRPS;
     [TabGroup("Prefabs")]
     public RewardUiItem RewardUIItem;
     [TabGroup("Prefabs")]

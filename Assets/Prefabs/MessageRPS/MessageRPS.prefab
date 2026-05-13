@@ -641,6 +641,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9316a4edc6c774f24a93cb1eb038f24d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MessageRPS
+  Poolable: 0
+  prevInteractionState: 0
+  m_ContentGroup: {fileID: 2013354762927149190}
   CenterDeckRect_player: {fileID: 6175552876479781933}
   CenterDeckRect_opponet: {fileID: 232967372951263145}
   PlayerCardsData:
