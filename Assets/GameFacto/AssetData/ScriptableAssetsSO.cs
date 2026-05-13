@@ -41,7 +41,7 @@ public class ScriptableAssetsSO : ScriptableObject
 
     public InventoryItemCell_Toggle InventoryItemCell_Toggle;
 
-
+    [TabGroup("Sprites")]
     public Sprite Coin_Icon;
     [TabGroup("Sprites")]
     public Sprite Default_EmptyIcon;

@@ -38,7 +38,6 @@ public class TutorialManager : MonoBehaviour
     private Vector3 m_MessageGroupInitPos;
 
     [SerializeField] Image m_Avatar;
-    [SerializeField] GameObject m_BuffArea;
     [SerializeField] CanvasGroup m_HandGroup;
     private Animator m_HandAnimator;
 
@@ -67,7 +66,6 @@ public class TutorialManager : MonoBehaviour
         m_FaderRectGroupDefaultAlpha = m_FaderRectGroup.alpha;
         m_HandGroup.transform.localScale = Vector3.one;
         m_HandAnimator = m_HandGroup.GetComponentInChildren<Animator>();
-        m_BuffArea.SetActive(false);
     }
 
     public void CallTutorial(TutorialFeatureSO data, UnityAction onCompleteAction =null)

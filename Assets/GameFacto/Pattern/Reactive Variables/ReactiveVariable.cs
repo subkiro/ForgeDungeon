@@ -1,47 +1,60 @@
 
 using System;
 using System.Collections.Generic;
-
-public class ReactiveVariable<T> 
+using UnityEngine;
+public class ReactiveVariable<T>
 {
-    public event Action<T,T> Changed;
+    public event Action<T, T> Changed;
+
     private T m_Value;
-    private IEqualityComparer<T> m_Comparer;
-    public ReactiveVariable(): this (default(T))
-    {
-        
-    }
-    public ReactiveVariable(T value): this (value,EqualityComparer<T>.Default)
-    {
-        
-    }
-
-    public ReactiveVariable(T value,IEqualityComparer<T> comparer){
-        m_Value = value;
-        m_Comparer = comparer;
-    }
-   
-
-    
 
     public T Value
     {
-        get=>m_Value;
+        get => m_Value;
         set
         {
+            if (m_Value == null && value == null) return;
+
+            bool areEqual = false;
+            try
+            {
+                areEqual = EqualityComparer<T>.Default.Equals(m_Value, value);
+            }
+            catch (NullReferenceException)
+            {
+                // Shouldn't happen for value types; for ref types, treat as not-equal and proceed
+                Debug.Log($"[ReactiveVariable] NullReferenceException Shouldn't happen for value types; for ref types, treat as not-equal and proceed");
+                areEqual = false;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[ReactiveVariable] Equality check failed unexpectedly: {e}");
+                return;
+            }
+
+            if (areEqual) return;
+
             T oldValue = m_Value;
             m_Value = value;
-
-            if (m_Comparer.Equals(m_Value, oldValue) == false)
-            {
-                Changed?.Invoke(oldValue,m_Value);
-            }
+            Changed?.Invoke(oldValue, m_Value);
         }
-
     }
 
-}   
+    public ReactiveVariable() { }
 
+    public ReactiveVariable(T value)
+    {
+        m_Value = value;
+    }
+
+    public void SetWithoutNotify(T value)
+    {
+        m_Value = value;
+    }
+
+    public static implicit operator T(ReactiveVariable<T> variable)
+        => variable != null ? variable.Value : default;
+}
 public class ReactiveList<T>
 {
     public event Action<T> OnAdded;
@@ -49,7 +62,7 @@ public class ReactiveList<T>
 
     private List<T> m_elements = new();
 
-    public IReadOnlyList<T> Elements =>m_elements;
+    public IReadOnlyList<T> Elements => m_elements;
 
     public virtual void Add(T element)
     {
@@ -57,7 +70,7 @@ public class ReactiveList<T>
         OnAdded?.Invoke(element);
     }
 
-    public virtual void Remove( T element)
+    public virtual void Remove(T element)
     {
         m_elements.Remove(element);
         OnRemoved?.Invoke(element);
@@ -67,51 +80,52 @@ public class ReactiveList<T>
 
 public class ReactiveStackableDictionary<T>
 {
-    public event Action<KeyValuePair<T,int>,int> OnAdded;
-    public event Action<KeyValuePair<T, int>,int> OnRemoved;
-    private Dictionary<T,int> m_elements = new();
+    public event Action<KeyValuePair<T, int>, int> OnAdded;
+    public event Action<KeyValuePair<T, int>, int> OnRemoved;
+    private Dictionary<T, int> m_elements = new();
 
-    public IReadOnlyDictionary<T,int> Elements =>m_elements;
+    public IReadOnlyDictionary<T, int> Elements => m_elements;
 
-    public virtual void Add(T key,int value=1)
+    public virtual void Add(T key, int value = 1)
     {
-        
+
         if (m_elements.ContainsKey(key))
         {
-            m_elements[key]+=value;
+            m_elements[key] += value;
         }
         else
         {
-            m_elements.Add(key,value);
+            m_elements.Add(key, value);
         }
 
         var valuePair = new KeyValuePair<T, int>(key, m_elements[key]);
-        OnAdded?.Invoke(valuePair,value);
+        OnAdded?.Invoke(valuePair, value);
     }
 
-    public virtual void Remove( T key,int amount = 1)
+    public virtual void Remove(T key, int amount = 1)
     {
-        if(amount==0) return;
-        
+        if (amount == 0) return;
+
         if (m_elements.ContainsKey(key))
         {
             int totalValue = m_elements[key];
-            if(totalValue>amount) {
+            if (totalValue > amount)
+            {
 
-                totalValue-=amount;
-                m_elements[key]=totalValue;
-                }
+                totalValue -= amount;
+                m_elements[key] = totalValue;
+            }
             else
             {
-                     m_elements.Remove(key);
-                     totalValue = 0;
+                m_elements.Remove(key);
+                totalValue = 0;
 
-            } 
+            }
             var valuePair = new KeyValuePair<T, int>(key, totalValue);
 
-            OnRemoved?.Invoke(valuePair,amount);
+            OnRemoved?.Invoke(valuePair, amount);
         }
-        
+
     }
 
 
@@ -124,7 +138,7 @@ public abstract class EqualityComparer<T> : IEqualityComparer<T>
 
 
 
-    public static EqualityComparer<T> Default{get;}
+    public static EqualityComparer<T> Default { get; }
 
 
     public abstract bool Equals(T x, T y);

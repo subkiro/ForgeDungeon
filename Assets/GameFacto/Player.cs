@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    public static UnityAction<int> OnCoinsUpdated; 
     public string PlayerID;
     public string PlayerName;
 
@@ -16,8 +15,7 @@ public class Player : MonoBehaviour
 
 
 
-    public int m_Coins;
-    public int Coins => m_Coins;
+    public ReactiveVariable<int> Coins;
 
     private bool m_Initialise;
 
@@ -25,8 +23,9 @@ public class Player : MonoBehaviour
     {
         PlayerID =  "Player";
         PlayerName =  "Player";
-        UpdateCoins(PlayerPrefs.HasKey("Coins") ? PlayerPrefs.GetInt("Coins") : GameManager.Instance.GameConstants.PlayerInitSettings.Coins);
-        
+        int savedCoins = PlayerPrefs.HasKey("Coins") ? PlayerPrefs.GetInt("Coins") : GameManager.Instance.GameConstants.PlayerInitSettings.Coins;
+        Coins = new ReactiveVariable<int>(savedCoins);
+        Coins.Changed+=SaveCoins;
         
         PlayerPrefs.Save();
 
@@ -35,16 +34,6 @@ public class Player : MonoBehaviour
 
     
    
-    public void UpdateInventory(RewardType type, int value)
-    {
-        switch (type)
-        {
-            case RewardType.COIN:
-                UpdateCoins(value);
-                break;
-
-        }
-    }
 
     
 
@@ -55,20 +44,17 @@ public class Player : MonoBehaviour
     #region Inventory
     public bool CanBuy(int cost)
     {
-        return cost > m_Coins ? false : true;
+        return cost > Coins.Value ? false : true;
     }
 
    
+    
    
-   
-   private void UpdateCoins(int coins)
+   private void SaveCoins(int prevValue,int newValue)
     {
-        Debug.LogWarning("Updating COINS");
-        m_Coins += coins;
-        if (m_Coins < 0) m_Coins = 0;
-        PlayerPrefs.SetInt("Coins", m_Coins);
+        Debug.LogWarning("Updating COINS");    
+        PlayerPrefs.SetInt("Coins", newValue);
         PlayerPrefs.Save();
-        OnCoinsUpdated?.Invoke(m_Coins);
     }
    
 

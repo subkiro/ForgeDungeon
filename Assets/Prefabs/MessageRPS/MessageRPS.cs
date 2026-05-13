@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -11,7 +9,7 @@ using UnityEngine.UI;
 
 public class MessageRPS : PopUp
 {
-
+    [SerializeField] Button m_CloseButton;
     [SerializeField] CanvasGroup m_ContentGroup;
     [SerializeField] RectTransform CenterDeckRect_player;
     [SerializeField] RectTransform CenterDeckRect_opponet;
@@ -24,20 +22,31 @@ public class MessageRPS : PopUp
     private CardsData m_active_OpponentCard;
 
     [SerializeField] TMP_Text m_ResultText;
-    [SerializeField] TMP_Text m_PlauerHelpText;
+    [SerializeField] TMP_Text m_PlayerHelpText;
 
     private int m_RoundCount;
     private int m_winCount;
     private int m_lostCount;
     private int m_drawCount;
+
+    private OnAnyTapAction m_Tap;
     public void SetData()
     {
+        // StatManager.Instance.Show(true,instant: true,front: true);
         SetupCards();
         ShowAnimation();
+        m_Tap = this.gameObject.AddComponent<OnAnyTapAction>();
+        m_Tap.SetOnClose(ShowDebug);
+
+        ShowBottomMessage(show: true, "Tap to Start");
+
+        m_CloseButton.onClick.AddListener(() => _ = OnClose());
     }
     [Button]
     async void ShowDebug()
     {
+        ShowBottomMessage(show: false);
+
         ShowCards(PlayerCardsData, isPlayer: true).Forget();
         ShowCards(OpponentCardsData, isPlayer: false).Forget();
 
@@ -48,14 +57,30 @@ public class MessageRPS : PopUp
         await SelectCard(card, isPlayer: true);
         await SelectCard(GetRandomCard(OpponentCardsData), isPlayer: false);
 
-        await ShowResult();
+        var results = await ShowResult();
 
         HideCards(PlayerCardsData, isPlayer: true).Forget();
         HideCards(OpponentCardsData, isPlayer: false).Forget();
 
+
+        if(m_winCount==2 || m_lostCount == 2)
+        {
+            await ShowFinalResults(results);
+            ShowBottomMessage(show: true, "Tap to Return");
+            m_Tap.SetOnClose(()=>{
+                _=OnClose();
+                if(results== RPS_Result.win)
+                {
+                   GiveRewards();
+                }
+                });
+            return;
+        }
+
         await ShowRound();
 
-        ShowDebug();
+        ShowBottomMessage(show: true, "Tap to Continue");
+        m_Tap.SetOnClose(ShowDebug);
     }
 
 
@@ -108,7 +133,7 @@ public class MessageRPS : PopUp
             var targetDest = (CenterDeckRect_opponet.localPosition + CenterDeckRect_player.localPosition) / 2;
             item.ResetCard();
             item.IsHidden = true;
-            tasks.Add(item.Group.DOFade(1, duration / 2).From(0).ToUniTask());
+            tasks.Add(item.Group.DOFade(1, duration / 2).From(0).SetLink(this.gameObject).ToUniTask());
 
 
         }
@@ -116,7 +141,6 @@ public class MessageRPS : PopUp
         tasks.Clear();
         foreach (var itemData in dataList)
         {
-
             var item = itemData.card;
             var targetDest = itemData.CardsPositions;
             item.IsHidden = !itemData.isPlayer;
@@ -125,6 +149,7 @@ public class MessageRPS : PopUp
             .DOLocalMove(targetDest.localPosition, duration)
             .SetDelay(delay)
             .SetEase(Ease.OutBack)
+            .SetLink(this.gameObject)
             .ToUniTask());
 
         }
@@ -138,7 +163,7 @@ public class MessageRPS : PopUp
 
         if (isPlayer)
         {
-            m_PlauerHelpText.DOFade(1, .5f).From(0).SetLoops(-1, LoopType.Yoyo).ToUniTask().Forget();
+            ShowBottomMessage(show: true, "Select Card");
 
         }
     }
@@ -146,8 +171,8 @@ public class MessageRPS : PopUp
     // 2
     async UniTask SelectCard(CardsData SelectedCard, bool isPlayer)
     {
-        m_PlauerHelpText.DOKill();
-        m_PlauerHelpText.alpha = 0;
+        m_PlayerHelpText.DOKill();
+        m_PlayerHelpText.alpha = 0;
 
         var card = SelectedCard.card;
         if (isPlayer) m_active_PlayerCard = SelectedCard;
@@ -165,38 +190,35 @@ public class MessageRPS : PopUp
             500,
             1,
             duration
-        ).SetEase(Ease.OutQuad).ToUniTask());
+        ).SetLink(this.gameObject).SetEase(Ease.OutQuad).ToUniTask());
 
         var restCards = isPlayer ? PlayerCardsData : OpponentCardsData;
         foreach (var item in restCards)
         {
             item.card.Interactable = false;
             if (item.card == SelectedCard.card) continue;
-            tasks.Add(item.card.Group.DOFade(0.2f, duration).ToUniTask());
-            tasks.Add(item.card.transform.RectTransform().DOScale(0.8f, duration).ToUniTask());
+            tasks.Add(item.card.Group.DOFade(0.2f, duration).SetLink(this.gameObject).ToUniTask());
+            tasks.Add(item.card.transform.RectTransform().DOScale(0.8f, duration).SetLink(this.gameObject).ToUniTask());
         }
 
 
 
-        tasks.Add(card.transform.DOLocalRotate(Vector3.zero, duration).ToUniTask());
+        tasks.Add(card.transform.DOLocalRotate(Vector3.zero, duration).SetLink(this.gameObject).ToUniTask());
 
         await UniTask.WhenAll(tasks);
         tasks.Clear();
-        if (!SelectedCard.isPlayer) tasks.Add(FlipCard(SelectedCard, duration / 4).ToUniTask());
-
-        await UniTask.WhenAll(tasks);
-        tasks.Clear();
-
-
+        
+        
+        if (!SelectedCard.isPlayer) await FlipCard(SelectedCard, duration / 4).SetLink(this.gameObject).ToUniTask();
 
     }
 
     // 3
-    async UniTask ShowResult()
+    async UniTask<RPS_Result> ShowResult()
     {
         var result = GetResult(m_active_PlayerCard.card.ID, m_active_OpponentCard.card.ID);
         string message = result.ToString();
-       
+
 
         var tasks = new List<UniTask>();
         CardRPS_Cell wincell;
@@ -227,23 +249,23 @@ public class MessageRPS : PopUp
 
 
 
-        await ShowMessage(message,1);
+        await ShowMessage(message, 1);
 
 
 
-        async UniTask Hit(RectTransform winCardRect, Vector2 dest)
+       Tween Hit(RectTransform winCardRect, Vector2 dest)
         {
-            await winCardRect.DOJumpAnchorPos(
+            return winCardRect.DOJumpAnchorPos(
              dest,
              300,
              1,
              .2f
-         ).SetEase(Ease.OutQuad).ToUniTask();
+         ).SetLink(winCardRect.gameObject).SetEase(Ease.OutQuad);
         }
-
+        return result;
     }
     // 4
-    async UniTask HideCards(List<CardsData> dataList, bool isPlayer)
+     UniTask HideCards(List<CardsData> dataList, bool isPlayer)
     {
         var activeData = isPlayer ? m_active_PlayerCard : m_active_OpponentCard;
 
@@ -256,10 +278,13 @@ public class MessageRPS : PopUp
         float duration = .3f;
         float finalPos = 800;
         float dir = isPlayer ? -finalPos : finalPos;
+
+        var s = DOTween.Sequence();
+
         foreach (var item in dataList)
         {
 
-            tasks.Add(item.card.Group.DOFade(0, duration / 2).SetDelay(.1f).ToUniTask());
+            s.Join(item.card.Group.DOFade(0, duration / 2).SetDelay(.1f));
 
         }
 
@@ -269,23 +294,25 @@ public class MessageRPS : PopUp
 
             float delay = UnityEngine.Random.Range(0, .1f);
             float dest = item.CardsPositions.localPosition.y + dir;
-            tasks.Add(item.card.transform
+             s.Join(item.card.transform
             .DOLocalMoveY(dest, duration)
             .SetDelay(delay)
-            .SetEase(Ease.InFlash)
-            .ToUniTask());
+            .SetEase(Ease.InFlash));
 
         }
 
-        tasks.Add(activeData.card.transform
+        s.Join(activeData.card.transform
             .DOLocalMoveX(dir, duration)
-            .SetEase(Ease.InBack)
-            .ToUniTask());
+            .SetEase(Ease.InBack));
 
-        await UniTask.WhenAll(tasks);
+        s.OnComplete(() =>
+        {
+            if (isPlayer) m_active_PlayerCard = default;
+            if (!isPlayer) m_active_OpponentCard = default;
 
-        if (isPlayer) m_active_PlayerCard = default;
-        if (!isPlayer) m_active_OpponentCard = default;
+        });
+
+        return s.ToUniTask();       
 
     }
 
@@ -294,10 +321,28 @@ public class MessageRPS : PopUp
     {
         m_RoundCount++;
         string message = $"Round {m_RoundCount} Score {m_winCount} - {m_lostCount}";
-        await ShowMessage(message,1);
+        await ShowMessage(message, 1);
     }
 
+     UniTask ShowFinalResults(RPS_Result result)
+    {
 
+        string message = $"Score {m_winCount} - {m_lostCount}";
+        string res = "";
+        switch (result)
+        {
+            case RPS_Result.win:
+            res = "\n<color=green>You win";
+            break;
+            case RPS_Result.lost:
+            res = "\n<color=red>You Lost";
+            break;
+        }
+
+        
+        
+        return ShowMessage(message+res, 1);
+    }
 
 
 
@@ -306,19 +351,44 @@ public class MessageRPS : PopUp
 
     #region  Help Functions
 
-    async UniTask ShowMessage(string message,float waitTime)
+
+    void GiveRewards()
     {
         
+            Reward.Instance.AnimateSpread(RewardType.COIN,Vector2.zero, StatManager.Instance.CoinStatCell.StatIcon.transform, 10, () =>
+                    {
+                        GameManager.Instance.Player.Coins.Value+=10;
+                    });
+    }
+    void ShowBottomMessage(bool show, string message = "", int loops = -1)
+    {
+        m_PlayerHelpText.DOKill();
+        if (show)
+        {
+            m_PlayerHelpText.text = message;
+            m_PlayerHelpText.DOFade(1, .5f).From(0).SetLoops(-1, LoopType.Yoyo).SetLink(this.gameObject);
+        }
+        else
+        {
+            m_PlayerHelpText.alpha = 0;
+            m_PlayerHelpText.text = "";
+
+        }
+    }
+    UniTask ShowMessage(string message, float waitTime)
+    {
+
         m_ResultText.text = message;
         m_ResultText.rectTransform.localScale = Vector2.one;
         m_ResultText.alpha = 0;
 
-        await m_ResultText.DOFade(1, .3f).ToUniTask();
-        await m_ResultText.rectTransform.DOPunchScale(Vector2.one * .1f, .2f).ToUniTask();
-        await UniTask.Delay(TimeSpan.FromSeconds(waitTime));
-        await m_ResultText.DOFade(0, .3f).ToUniTask();
-
-
+        var s = DOTween.Sequence()
+        .Append(m_ResultText.DOFade(1, .3f))
+        .Append(m_ResultText.rectTransform.DOPunchScale(Vector2.one * .1f, .2f))
+        .AppendInterval(1)
+        .Append(m_ResultText.DOFade(0, .3f))
+        .ToUniTask();
+        return s;
     }
     void ShuffleOpponentCards()
     {
@@ -372,6 +442,7 @@ public class MessageRPS : PopUp
         //Show Animation
         Sequence s = DOTween.Sequence();
         s.SetId(this);
+        s.SetLink(this.gameObject);
         s.OnStart(() =>
         {
             GameManager.Instance.SoundManager.PlayGivenSound("Pop", volume: 0.2f);
@@ -380,13 +451,16 @@ public class MessageRPS : PopUp
         s.Append(m_ContentGroup.DOFade(1, 0.2f).From(0));
         s.Join(m_ContentGroup.transform.RectTransform().DOPunchScale(new Vector3(0.1f, 0.1f, 0), 0.2f, vibrato: 8).SetEase(Ease.OutElastic));
 
-        
+
     }
     private async Awaitable OnClose()
     {
         m_ContentGroup.interactable = false;
         await HideAnimation().ToAwaitable();
+        // _=StatManager.Instance.Show(show: false,instant: true,front: true);
+
         OnCompleteBase?.Invoke();
+
     }
 
     private Tween HideAnimation()
@@ -395,6 +469,7 @@ public class MessageRPS : PopUp
         //Show Animation
         Sequence s = DOTween.Sequence();
         s.SetId(this);
+        s.SetLink(this.gameObject);
         s.OnStart(() =>
         {
             GameManager.Instance.SoundManager.PlayGivenSound("Sweesh", volume: 0.1f);

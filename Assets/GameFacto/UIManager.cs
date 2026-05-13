@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button m_RPSButton;
     public Button SettingButton => m_SettingsButtonInGame;
 
+
     Canvas m_UICanvas;
 
 
@@ -83,6 +84,23 @@ public class UIManager : MonoBehaviour
         message.SetData();
 
 
+    }
+
+    [Button]
+    void GiveRewardsDebug()
+    {
+        if (GameManager.Instance.Player.Coins == null)
+        {
+            Debug.LogError("Coins is NULL");
+            return;
+        }
+        GameManager.Instance.Player.Coins.Value += 11;
+
+        return;
+        Reward.Instance.AnimateSpread(RewardType.COIN, Vector2.zero, StatManager.Instance.CoinStatCell.StatIcon.transform, 10, () =>
+                {
+                    GameManager.Instance.Player.Coins.Value += 77;
+                });
     }
 
     // public void CheckForTutorials(ActiveLevelData activeLevel)

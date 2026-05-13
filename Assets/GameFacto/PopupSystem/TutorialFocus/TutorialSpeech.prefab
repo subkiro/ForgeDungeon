@@ -153,7 +153,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1264548472, guid: ea84f8bd1d89f1e449797e5b9f3959e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5553123d959f942cfba5f8efab5da41d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1197,8 +1197,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hello and welcome this is code gameFacto
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 915696cca8c82e74b96c5abe98d9896c, type: 2}
-  m_sharedMaterial: {fileID: 2177075508894229445, guid: 915696cca8c82e74b96c5abe98d9896c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e78ef0d5545984f7a8bcb9f4c3ef4adb, type: 2}
+  m_sharedMaterial: {fileID: 4521261154298394455, guid: e78ef0d5545984f7a8bcb9f4c3ef4adb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
