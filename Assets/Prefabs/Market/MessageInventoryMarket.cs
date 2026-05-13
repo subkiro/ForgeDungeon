@@ -78,8 +78,18 @@ public class MessageInventoryMarket : PopUp
         var itemToBuy = m_PreviewCellView.DataSO;
 
 
-        Tools.Log($"Try to buy <color=orange>{itemToBuy.DisplayName}</color> and update the player inventory");
-        GameManager.Instance.Player.PlayerInvetory.Add(itemToBuy);
+        if (GameManager.Instance.Player.CanBuy((int)itemToBuy.Cost.Stat_Value))
+        {
+             Tools.Log($"Try to buy <color=orange>{itemToBuy.DisplayName}</color> and update the player inventory");
+             GameManager.Instance.Player.PlayerInvetory.Add(itemToBuy);
+             GameManager.Instance.Player.Coins.Value-=(int) itemToBuy.Cost.Stat_Value;
+        }
+        else
+        {
+            Tools.Log($"Not Enough Mone ", Color.orange);
+
+        }
+       
     }
 
     void UpdatePreview(InventoryItemSO item)

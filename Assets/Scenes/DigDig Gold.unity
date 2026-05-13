@@ -312,34 +312,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1553046837244468054, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1553046837244468054, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1553046837244468054, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1553046837244468054, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1553046837244468054, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1553046837244468054, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1866758945618496803, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: loadIsComplete.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2514116236883751826, guid: afbabb17985024828812627f2f890295, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -384,22 +356,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1299119004}
-    - target: {fileID: 2676998936382368171, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2676998936382368171, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2676998936382368171, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_PlaneDistance
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2676998936382368171, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 3216222566001532213, guid: afbabb17985024828812627f2f890295, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -428,10 +384,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5016454051802163967, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_SortingOrder
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 5114874658616605937, guid: afbabb17985024828812627f2f890295, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -455,10 +407,6 @@ PrefabInstance:
     - target: {fileID: 5114874658616605937, guid: afbabb17985024828812627f2f890295, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5487367487717436544, guid: afbabb17985024828812627f2f890295, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8250416548833700633, guid: afbabb17985024828812627f2f890295, type: 3}
       propertyPath: m_AnchorMax.y

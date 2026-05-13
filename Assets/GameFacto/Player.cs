@@ -1,5 +1,6 @@
 
 
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
 
 
 
-    public ReactiveVariable<int> Coins;
+   public ReactiveVariable<int> Coins ;
 
     private bool m_Initialise;
 

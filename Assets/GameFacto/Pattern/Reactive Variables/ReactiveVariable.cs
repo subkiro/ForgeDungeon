@@ -13,26 +13,14 @@ public class ReactiveVariable<T>
         get => m_Value;
         set
         {
-            if (m_Value == null && value == null) return;
-
-            bool areEqual = false;
-            try
+            if (m_Value is IEquatable<T> equatable)
             {
-                areEqual = EqualityComparer<T>.Default.Equals(m_Value, value);
+                if (equatable.Equals(value)) return;
             }
-            catch (NullReferenceException)
+            else
             {
-                // Shouldn't happen for value types; for ref types, treat as not-equal and proceed
-                Debug.Log($"[ReactiveVariable] NullReferenceException Shouldn't happen for value types; for ref types, treat as not-equal and proceed");
-                areEqual = false;
+                if (Equals(m_Value, value)) return;
             }
-            catch (Exception e)
-            {
-                Debug.LogError($"[ReactiveVariable] Equality check failed unexpectedly: {e}");
-                return;
-            }
-
-            if (areEqual) return;
 
             T oldValue = m_Value;
             m_Value = value;

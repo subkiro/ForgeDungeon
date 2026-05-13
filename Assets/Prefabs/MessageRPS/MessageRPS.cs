@@ -265,7 +265,7 @@ public class MessageRPS : PopUp
         return result;
     }
     // 4
-     UniTask HideCards(List<CardsData> dataList, bool isPlayer)
+     async UniTask HideCards(List<CardsData> dataList, bool isPlayer)
     {
         var activeData = isPlayer ? m_active_PlayerCard : m_active_OpponentCard;
 
@@ -279,12 +279,10 @@ public class MessageRPS : PopUp
         float finalPos = 800;
         float dir = isPlayer ? -finalPos : finalPos;
 
-        var s = DOTween.Sequence();
-
         foreach (var item in dataList)
         {
 
-            s.Join(item.card.Group.DOFade(0, duration / 2).SetDelay(.1f));
+            tasks.Add(item.card.Group.DOFade(0, duration / 2).SetDelay(.1f).ToUniTask());
 
         }
 
@@ -294,25 +292,24 @@ public class MessageRPS : PopUp
 
             float delay = UnityEngine.Random.Range(0, .1f);
             float dest = item.CardsPositions.localPosition.y + dir;
-             s.Join(item.card.transform
+            tasks.Add(item.card.transform
             .DOLocalMoveY(dest, duration)
             .SetDelay(delay)
-            .SetEase(Ease.InFlash));
+            .SetEase(Ease.InFlash)
+            .ToUniTask());
 
         }
 
-        s.Join(activeData.card.transform
+        tasks.Add(activeData.card.transform
             .DOLocalMoveX(dir, duration)
-            .SetEase(Ease.InBack));
+            .SetEase(Ease.InBack)
+            .ToUniTask());
 
-        s.OnComplete(() =>
-        {
-            if (isPlayer) m_active_PlayerCard = default;
-            if (!isPlayer) m_active_OpponentCard = default;
+        await UniTask.WhenAll(tasks);
 
-        });
 
-        return s.ToUniTask();       
+        if (isPlayer) m_active_PlayerCard = default;
+        if (!isPlayer) m_active_OpponentCard = default;   
 
     }
 

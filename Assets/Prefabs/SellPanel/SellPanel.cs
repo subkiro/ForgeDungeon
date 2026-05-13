@@ -43,7 +43,7 @@ public class SellPanel : MonoBehaviour
     }
     private void OnSell()
     {
-
+        GameManager.Instance.Player.Coins.Value+= ( int) m_item.Cost.Stat_Value;
         GameManager.Instance.Player.PlayerInvetory.Remove(m_item,m_selectedAmount);
 
     }

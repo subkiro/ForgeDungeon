@@ -86,23 +86,7 @@ public class UIManager : MonoBehaviour
 
     }
 
-    [Button]
-    void GiveRewardsDebug()
-    {
-        if (GameManager.Instance.Player.Coins == null)
-        {
-            Debug.LogError("Coins is NULL");
-            return;
-        }
-        GameManager.Instance.Player.Coins.Value += 11;
-
-        return;
-        Reward.Instance.AnimateSpread(RewardType.COIN, Vector2.zero, StatManager.Instance.CoinStatCell.StatIcon.transform, 10, () =>
-                {
-                    GameManager.Instance.Player.Coins.Value += 77;
-                });
-    }
-
+   
     // public void CheckForTutorials(ActiveLevelData activeLevel)
     // {
     //     int index = activeLevel.WaveIndex;
