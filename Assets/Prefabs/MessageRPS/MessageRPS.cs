@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class MessageRPS : PopUp
 {
@@ -79,8 +80,9 @@ public class MessageRPS : PopUp
 
         await ShowRound();
 
-        ShowBottomMessage(show: true, "Tap to Continue");
-        m_Tap.SetOnClose(ShowDebug);
+        //ShowBottomMessage(show: true, "Tap to Continue");
+        //m_Tap.SetOnClose(ShowDebug);
+        ShowDebug();
     }
 
 
@@ -92,6 +94,14 @@ public class MessageRPS : PopUp
             button.onClick.AddListener(() => SelectCardAction(item));
             item.card.Interactable = false;
         }
+
+        foreach (var item in PlayerCardsData)
+        {
+            Vector2 randomPos = Random.insideUnitCircle;
+            Vector2 startPos = item.card.transform.RectTransform().anchoredPosition;
+            item.card.transform.RectTransform().DOAnchorPos(startPos,Random.value*.5f).From(startPos+randomPos*500);
+        }
+
 
     }
 
@@ -356,6 +366,8 @@ public class MessageRPS : PopUp
 
      UniTask ShowFinalResults(RPS_Result result)
     {
+
+        GameManager.Instance.SoundManager.PlayGivenSound(result== RPS_Result.win?"Win":"Lost",volume:.5f);
 
         string message = $"Score {m_winCount} - {m_lostCount}";
         string res = "";

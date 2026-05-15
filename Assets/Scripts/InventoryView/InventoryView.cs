@@ -31,6 +31,8 @@ public class InventoryView : MonoBehaviour
 
         Tools.Log($"Player Inventory: {cell.DataSO.DisplayName} Removed from Inventory",Color.red);
 
+        GameManager.Instance.SoundManager.PlayGivenSound("WooblePop",pitch: 1.3f);
+
         if (totalAmount == 0)
         {
             m_elements.Remove(item);
@@ -61,6 +63,7 @@ public class InventoryView : MonoBehaviour
         int totalAmount = keyValuePair.Value;
 
         ItemCellView cell = null;
+        GameManager.Instance.SoundManager.PlayGivenSound("WooblePop",pitch: 1.3f);
 
         if (!m_elements.ContainsKey(item))
         {
