@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +34,10 @@ public class InventoryView : MonoBehaviour
         if (totalAmount == 0)
         {
             m_elements.Remove(item);
-            Destroy(cell.gameObject);
+            AnimateRemove(cell).OnComplete(() =>
+            {
+              Destroy(cell.gameObject);
+            });
 
         }
         else
@@ -59,13 +60,19 @@ public class InventoryView : MonoBehaviour
         InventoryItemSO item = keyValuePair.Key;
         int totalAmount = keyValuePair.Value;
 
-        ItemCellView cell;
+        ItemCellView cell = null;
 
         if (!m_elements.ContainsKey(item))
         {
            var prefab = GameManager.Instance.AssetScriptableData.ItemCell_View;
            cell = Instantiate(prefab,m_ContainerGroup.transform); 
            m_elements.Add(item,cell);
+           AnimateAdd(cell);
+        }
+        else
+        {
+            cell = m_elements[item];
+            AnimateUpdate(cell);
         }
         
         m_elements[item].Initialize(item,totalAmount);
@@ -80,6 +87,8 @@ public class InventoryView : MonoBehaviour
             }
             
         }
+
+        
 
     }
 
@@ -105,7 +114,18 @@ public class InventoryView : MonoBehaviour
         }
     }
 
-    
+    Tween AnimateAdd(ItemCellView item)
+    {
+        return item.transform.DOScale(1,.2f).From(0.5f).SetEase(Ease.OutBack).SetLink(item.gameObject);
+    }
+     Tween AnimateUpdate(ItemCellView item)
+    {
+        return item.transform.DOPunchScale(Vector2.one*.1f,.2f).SetEase(Ease.OutBack).SetLink(item.gameObject);
+    }
+    Tween AnimateRemove(ItemCellView item)
+    {
+        return item.transform.DOScale(0,.2f).SetEase(Ease.InBack).SetLink(item.gameObject);
+    }
     
      private void OnDestroy()
     {

@@ -20,6 +20,12 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 0bfec880b2c4e544993d125e2cb6bcdd, type: 3}
     m_Clip: {fileID: 8300000, guid: 93e4aced413fd0a4596d4556a8be974a, type: 3}
     Tag: 0
+  - ID: Coin
+    UseList: 0
+    Vol: 0.5
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: dfc5cc86153ad56458845a1d23632480, type: 3}
+    Tag: 0
   - ID: ForgeHit
     UseList: 0
     Vol: 0.5
@@ -35,3 +41,33 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 6cc0259f98229a64da43ba52927cdfee, type: 3}
     m_Clip: {fileID: 0}
     Tag: 0
+  - ID: CardSelect
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: dd318e0f05fbb0b4883f1912f8cfddbc, type: 3}
+    Tag: 2
+  - ID: CardDisselect
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: b63d879103f7dae4785d096c073a1b15, type: 3}
+    Tag: 2
+  - ID: CardResult
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: ace348894109b904a802f4ac85bfcd3b, type: 3}
+    Tag: 2
+  - ID: PositiveFeedback
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: af9159635c5582e408d36c54fef07a9b, type: 3}
+    Tag: 1
+  - ID: NegativeFeedback
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 7033c33a63f60db469e0421bbdb72c65, type: 3}
+    Tag: 1

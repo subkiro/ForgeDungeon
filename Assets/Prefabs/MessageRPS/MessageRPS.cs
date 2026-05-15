@@ -139,6 +139,9 @@ public class MessageRPS : PopUp
         }
         await UniTask.WhenAll(tasks);
         tasks.Clear();
+
+        GameManager.Instance.SoundManager.PlayGivenSound("CardSelect",volume: 0.5f);
+
         foreach (var itemData in dataList)
         {
             var item = itemData.card;
@@ -146,11 +149,13 @@ public class MessageRPS : PopUp
             item.IsHidden = !itemData.isPlayer;
             float delay = UnityEngine.Random.Range(0, .1f);
             tasks.Add(item.transform
-            .DOLocalMove(targetDest.localPosition, duration)
+            
+            .DOLocalMove(targetDest.localPosition, duration)     
             .SetDelay(delay)
             .SetEase(Ease.OutBack)
             .SetLink(this.gameObject)
             .ToUniTask());
+            
 
         }
 
@@ -180,10 +185,12 @@ public class MessageRPS : PopUp
 
 
         var deck = isPlayer ? CenterDeckRect_player : CenterDeckRect_opponet;
+        GameManager.Instance.SoundManager.PlayGivenSound(isPlayer? "CardSelect":"CardDisselect");
 
 
         var tasks = new List<UniTask>();
         float duration = .3f;
+
 
         tasks.Add(card.transform.RectTransform().DOJumpAnchorPos(
             deck.anchoredPosition,
@@ -230,6 +237,8 @@ public class MessageRPS : PopUp
                 m_winCount++;
                 m_active_PlayerCard.card.transform.SetAsLastSibling();
                 wincell = m_active_PlayerCard.card;
+               GameManager.Instance.SoundManager.PlayGivenSound("PositiveFeedback",volume:.5f);
+
                 await Hit(wincell.transform.RectTransform(), hitDestination);
                 break;
 
@@ -237,11 +246,17 @@ public class MessageRPS : PopUp
                 m_lostCount++;
                 m_active_OpponentCard.card.transform.SetAsLastSibling();
                 wincell = m_active_OpponentCard.card;
+                GameManager.Instance.SoundManager.PlayGivenSound("NegativeFeedback",volume:.5f);
+
                 await Hit(wincell.transform.RectTransform(), hitDestination);
                 break;
 
             case RPS_Result.draw:
+                GameManager.Instance.SoundManager.PlayGivenSound("CardResult",volume:.5f);
+
+                await HitDraw(m_active_PlayerCard.card.transform.RectTransform(),m_active_OpponentCard.card.transform.RectTransform());
                 m_drawCount++;
+
                 break;
 
         }
@@ -262,6 +277,24 @@ public class MessageRPS : PopUp
              .2f
          ).SetLink(winCardRect.gameObject).SetEase(Ease.OutQuad);
         }
+
+        Tween HitDraw(RectTransform cardA,RectTransform cardB)
+        {
+
+            var s  = DOTween.Sequence();
+
+            s.Join(cardA.DOPunchAnchorPos(Vector2.right*50f,.2f));
+            s.Join(cardB.DOPunchAnchorPos(Vector2.left*50f,.2f));
+
+            s.Join(cardA.DOPunchRotation(Vector3.forward*-20,.2f).SetEase(Ease.InBack));
+            s.Join(cardB.DOPunchRotation(Vector3.forward*20,.2f).SetEase(Ease.InBack));
+
+            return s;
+
+            
+        }
+
+
         return result;
     }
     // 4

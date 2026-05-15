@@ -43,16 +43,26 @@ public class SellPanel : MonoBehaviour
     }
     private void OnSell()
     {
-        GameManager.Instance.Player.Coins.Value+= ( int) m_item.Cost.Stat_Value;
-        GameManager.Instance.Player.PlayerInvetory.Remove(m_item,m_selectedAmount);
+        GiveRewards();
+        
 
     }
 
-
+    void GiveRewards()
+    {
+        
+            Reward.Instance.AnimateSpread(RewardType.COIN,Vector2.zero, StatManager.Instance.CoinStatCell.StatIcon.transform, 10, () =>
+                    {
+                        GameManager.Instance.Player.Coins.Value+= ( int) m_item.Cost.Stat_Value;
+                        GameManager.Instance.Player.PlayerInvetory.Remove(m_item,m_selectedAmount);
+                    },previewAnimation: false,previewInterval:0,spreadDistance:6);
+    }
     void OnUpdateItem(InventoryItemSO item)
     {
         var totalAmount = GameManager.Instance.Player.PlayerInvetory.Elements[item];
         m_Amount.text = $"{m_selectedAmount}/{totalAmount}";
         m_EarnAmount.text = $"Earn {item.Cost.Stat_Value*m_selectedAmount}<sprite name=coin>";
     }
+
+
 }
