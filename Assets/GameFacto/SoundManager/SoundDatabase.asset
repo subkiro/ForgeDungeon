@@ -41,6 +41,18 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 6cc0259f98229a64da43ba52927cdfee, type: 3}
     m_Clip: {fileID: 0}
     Tag: 0
+  - ID: Win
+    UseList: 0
+    Vol: 0.5
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: f6c70cff668f77a48b2c87d146a1a53c, type: 3}
+    Tag: 0
+  - ID: Lost
+    UseList: 0
+    Vol: 0.5
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 8714197cf639bda40838b0e927e52b63, type: 3}
+    Tag: 0
   - ID: CardSelect
     UseList: 0
     Vol: 1
@@ -55,7 +67,7 @@ MonoBehaviour:
     Tag: 2
   - ID: CardResult
     UseList: 0
-    Vol: 1
+    Vol: 0.2
     m_ClipList: []
     m_Clip: {fileID: 8300000, guid: ace348894109b904a802f4ac85bfcd3b, type: 3}
     Tag: 2
@@ -63,7 +75,7 @@ MonoBehaviour:
     UseList: 0
     Vol: 1
     m_ClipList: []
-    m_Clip: {fileID: 8300000, guid: af9159635c5582e408d36c54fef07a9b, type: 3}
+    m_Clip: {fileID: 8300000, guid: 5d6c52c7af9667e48b4cd1fb52ab0017, type: 3}
     Tag: 1
   - ID: NegativeFeedback
     UseList: 0
@@ -71,3 +83,9 @@ MonoBehaviour:
     m_ClipList: []
     m_Clip: {fileID: 8300000, guid: 7033c33a63f60db469e0421bbdb72c65, type: 3}
     Tag: 1
+  - ID: WooblePop
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 5d6c52c7af9667e48b4cd1fb52ab0017, type: 3}
+    Tag: 0
