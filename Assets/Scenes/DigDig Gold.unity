@@ -312,6 +312,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1866758945618496803, guid: afbabb17985024828812627f2f890295, type: 3}
+      propertyPath: GameConstants.PlayerInitSettings.Coins
+      value: 1111
+      objectReference: {fileID: 0}
     - target: {fileID: 2514116236883751826, guid: afbabb17985024828812627f2f890295, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
