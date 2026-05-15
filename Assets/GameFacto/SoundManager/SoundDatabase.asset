@@ -89,3 +89,15 @@ MonoBehaviour:
     m_ClipList: []
     m_Clip: {fileID: 8300000, guid: 5d6c52c7af9667e48b4cd1fb52ab0017, type: 3}
     Tag: 0
+  - ID: Swoosh
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 12efc39609b2c4a42a098b649ebb2204, type: 3}
+    Tag: 3
+  - ID: Sweesh
+    UseList: 0
+    Vol: 1
+    m_ClipList: []
+    m_Clip: {fileID: 8300000, guid: 36e478885e9d84c429c72f317c9913c6, type: 3}
+    Tag: 3

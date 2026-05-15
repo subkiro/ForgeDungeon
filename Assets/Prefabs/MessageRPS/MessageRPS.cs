@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,16 +33,55 @@ public class MessageRPS : PopUp
     public void SetData()
     {
         // StatManager.Instance.Show(true,instant: true,front: true);
-        SetupCards();
-        ShowAnimation();
-        m_Tap = this.gameObject.AddComponent<OnAnyTapAction>();
-        m_Tap.SetOnClose(ShowDebug);
 
-        ShowBottomMessage(show: true, "Tap to Start");
+        ShowAnimation();
+        SetupCards();
+        m_Tap = this.gameObject.AddComponent<OnAnyTapAction>();
 
         m_CloseButton.onClick.AddListener(() => _ = OnClose());
+
+        StartGame().Forget();
     }
-    [Button]
+
+    async UniTaskVoid StartGame()
+{
+
+    var allCards = new List<CardsData>();
+    allCards.AddRange(PlayerCardsData);
+    allCards.AddRange(OpponentCardsData);
+    GameManager.Instance.SoundManager.PlayGivenSound("Sweesh", volume: 0.1f,pitch:2);
+
+    var tasks = new List<UniTask>();
+        tasks.Add(m_ContentGroup.DOFade(1,.2f).From(0).ToUniTask());
+
+    for (int i = 0; i < allCards.Count; i++)
+    {
+        var card = allCards[i].card;
+
+        card.ResetCard();
+
+        // Even angle
+        float angle = i * Mathf.PI * 2f / allCards.Count;
+
+        // Position on circle edge
+        Vector2 position = new Vector2(
+            Mathf.Cos(angle),
+            Mathf.Sin(angle)
+        ) * 700f;
+
+        tasks.Add(
+            card.transform
+                .DOLocalMove(Vector3.zero,Random.value * .5f)
+                .From((Vector3)position)
+                .ToUniTask()
+        );
+    }
+
+    await UniTask.WhenAll(tasks);
+
+    m_Tap.SetOnClose(ShowDebug);
+    ShowBottomMessage(show: true, "Tap to Start");
+}
     async void ShowDebug()
     {
         ShowBottomMessage(show: false);
@@ -64,17 +102,18 @@ public class MessageRPS : PopUp
         HideCards(OpponentCardsData, isPlayer: false).Forget();
 
 
-        if(m_winCount==2 || m_lostCount == 2)
+        if (m_winCount == 2 || m_lostCount == 2)
         {
             await ShowFinalResults(results);
             ShowBottomMessage(show: true, "Tap to Return");
-            m_Tap.SetOnClose(()=>{
-                _=OnClose();
-                if(results== RPS_Result.win)
+            m_Tap.SetOnClose(() =>
+            {
+                _ = OnClose();
+                if (results == RPS_Result.win)
                 {
-                   GiveRewards();
+                    GiveRewards();
                 }
-                });
+            });
             return;
         }
 
@@ -93,13 +132,6 @@ public class MessageRPS : PopUp
             var button = item.card.Container.gameObject.AddComponent<Button>();
             button.onClick.AddListener(() => SelectCardAction(item));
             item.card.Interactable = false;
-        }
-
-        foreach (var item in PlayerCardsData)
-        {
-            Vector2 randomPos = Random.insideUnitCircle;
-            Vector2 startPos = item.card.transform.RectTransform().anchoredPosition;
-            item.card.transform.RectTransform().DOAnchorPos(startPos,Random.value*.5f).From(startPos+randomPos*500);
         }
 
 
@@ -150,7 +182,7 @@ public class MessageRPS : PopUp
         await UniTask.WhenAll(tasks);
         tasks.Clear();
 
-        GameManager.Instance.SoundManager.PlayGivenSound("CardSelect",volume: 0.5f);
+         GameManager.Instance.SoundManager.PlayGivenSound("Sweesh", volume: 0.1f,pitch:2);
 
         foreach (var itemData in dataList)
         {
@@ -159,14 +191,12 @@ public class MessageRPS : PopUp
             item.IsHidden = !itemData.isPlayer;
             float delay = UnityEngine.Random.Range(0, .1f);
             tasks.Add(item.transform
-            
-            .DOLocalMove(targetDest.localPosition, duration)     
+
+            .DOLocalMove(targetDest.localPosition, duration)
             .SetDelay(delay)
             .SetEase(Ease.OutBack)
             .SetLink(this.gameObject)
             .ToUniTask());
-            
-
         }
 
         await UniTask.WhenAll(tasks);
@@ -195,7 +225,7 @@ public class MessageRPS : PopUp
 
 
         var deck = isPlayer ? CenterDeckRect_player : CenterDeckRect_opponet;
-        GameManager.Instance.SoundManager.PlayGivenSound(isPlayer? "CardSelect":"CardDisselect");
+        GameManager.Instance.SoundManager.PlayGivenSound(isPlayer ? "CardSelect" : "CardDisselect");
 
 
         var tasks = new List<UniTask>();
@@ -221,11 +251,12 @@ public class MessageRPS : PopUp
 
 
         tasks.Add(card.transform.DOLocalRotate(Vector3.zero, duration).SetLink(this.gameObject).ToUniTask());
+        GameManager.Instance.HapticManager.VibradePreset(HapticManager.HapticType.HIT);
 
         await UniTask.WhenAll(tasks);
         tasks.Clear();
-        
-        
+
+
         if (!SelectedCard.isPlayer) await FlipCard(SelectedCard, duration / 4).SetLink(this.gameObject).ToUniTask();
 
     }
@@ -247,24 +278,27 @@ public class MessageRPS : PopUp
                 m_winCount++;
                 m_active_PlayerCard.card.transform.SetAsLastSibling();
                 wincell = m_active_PlayerCard.card;
-               GameManager.Instance.SoundManager.PlayGivenSound("PositiveFeedback",volume:.5f);
-
+                GameManager.Instance.SoundManager.PlayGivenSound("PositiveFeedback", volume: .5f);
+                GameManager.Instance.HapticManager.VibradePreset(HapticManager.HapticType.HIT);
                 await Hit(wincell.transform.RectTransform(), hitDestination);
+
                 break;
 
             case RPS_Result.lost:
                 m_lostCount++;
                 m_active_OpponentCard.card.transform.SetAsLastSibling();
                 wincell = m_active_OpponentCard.card;
-                GameManager.Instance.SoundManager.PlayGivenSound("NegativeFeedback",volume:.5f);
+                GameManager.Instance.SoundManager.PlayGivenSound("NegativeFeedback", volume: .5f);
+                GameManager.Instance.HapticManager.VibradePreset(HapticManager.HapticType.NOPE);
 
                 await Hit(wincell.transform.RectTransform(), hitDestination);
                 break;
 
             case RPS_Result.draw:
-                GameManager.Instance.SoundManager.PlayGivenSound("CardResult",volume:.5f);
+                GameManager.Instance.SoundManager.PlayGivenSound("CardResult", volume: .5f);
+                GameManager.Instance.HapticManager.VibradePreset(HapticManager.HapticType.NOPE);
 
-                await HitDraw(m_active_PlayerCard.card.transform.RectTransform(),m_active_OpponentCard.card.transform.RectTransform());
+                await HitDraw(m_active_PlayerCard.card.transform.RectTransform(), m_active_OpponentCard.card.transform.RectTransform());
                 m_drawCount++;
 
                 break;
@@ -278,7 +312,7 @@ public class MessageRPS : PopUp
 
 
 
-       Tween Hit(RectTransform winCardRect, Vector2 dest)
+        Tween Hit(RectTransform winCardRect, Vector2 dest)
         {
             return winCardRect.DOJumpAnchorPos(
              dest,
@@ -288,33 +322,34 @@ public class MessageRPS : PopUp
          ).SetLink(winCardRect.gameObject).SetEase(Ease.OutQuad);
         }
 
-        Tween HitDraw(RectTransform cardA,RectTransform cardB)
+        Tween HitDraw(RectTransform cardA, RectTransform cardB)
         {
 
-            var s  = DOTween.Sequence();
+            var s = DOTween.Sequence();
 
-            s.Join(cardA.DOPunchAnchorPos(Vector2.right*50f,.2f));
-            s.Join(cardB.DOPunchAnchorPos(Vector2.left*50f,.2f));
+            s.Join(cardA.DOPunchAnchorPos(Vector2.right * 50f, .2f));
+            s.Join(cardB.DOPunchAnchorPos(Vector2.left * 50f, .2f));
 
-            s.Join(cardA.DOPunchRotation(Vector3.forward*-20,.2f).SetEase(Ease.InBack));
-            s.Join(cardB.DOPunchRotation(Vector3.forward*20,.2f).SetEase(Ease.InBack));
+            s.Join(cardA.DOPunchRotation(Vector3.forward * -20, .2f).SetEase(Ease.InBack));
+            s.Join(cardB.DOPunchRotation(Vector3.forward * 20, .2f).SetEase(Ease.InBack));
 
             return s;
 
-            
+
         }
 
 
         return result;
     }
     // 4
-     async UniTask HideCards(List<CardsData> dataList, bool isPlayer)
+    async UniTask HideCards(List<CardsData> dataList, bool isPlayer)
     {
         var activeData = isPlayer ? m_active_PlayerCard : m_active_OpponentCard;
 
 
 
 
+       GameManager.Instance.SoundManager.PlayGivenSound("Swoosh", volume: 0.1f,pitch:2);
 
 
         var tasks = new List<UniTask>();
@@ -352,7 +387,7 @@ public class MessageRPS : PopUp
 
 
         if (isPlayer) m_active_PlayerCard = default;
-        if (!isPlayer) m_active_OpponentCard = default;   
+        if (!isPlayer) m_active_OpponentCard = default;
 
     }
 
@@ -364,26 +399,26 @@ public class MessageRPS : PopUp
         await ShowMessage(message, 1);
     }
 
-     UniTask ShowFinalResults(RPS_Result result)
+    UniTask ShowFinalResults(RPS_Result result)
     {
 
-        GameManager.Instance.SoundManager.PlayGivenSound(result== RPS_Result.win?"Win":"Lost",volume:.5f);
+        GameManager.Instance.SoundManager.PlayGivenSound(result == RPS_Result.win ? "Win" : "Lost", volume: .5f);
 
         string message = $"Score {m_winCount} - {m_lostCount}";
         string res = "";
         switch (result)
         {
             case RPS_Result.win:
-            res = "\n<color=green>You win";
-            break;
+                res = "\n<color=green>You win";
+                break;
             case RPS_Result.lost:
-            res = "\n<color=red>You Lost";
-            break;
+                res = "\n<color=red>You Lost";
+                break;
         }
 
-        
-        
-        return ShowMessage(message+res, 1);
+
+
+        return ShowMessage(message + res, 1);
     }
 
 
@@ -396,11 +431,11 @@ public class MessageRPS : PopUp
 
     void GiveRewards()
     {
-        
-            Reward.Instance.AnimateSpread(RewardType.COIN,Vector2.zero, StatManager.Instance.CoinStatCell.StatIcon.transform, 10, () =>
-                    {
-                        GameManager.Instance.Player.Coins.Value+=10;
-                    });
+
+        Reward.Instance.AnimateSpread(RewardType.COIN, Vector2.zero, StatManager.Instance.CoinStatCell.StatIcon.transform, 10, () =>
+                {
+                    GameManager.Instance.Player.Coins.Value += 10;
+                });
     }
     void ShowBottomMessage(bool show, string message = "", int loops = -1)
     {
