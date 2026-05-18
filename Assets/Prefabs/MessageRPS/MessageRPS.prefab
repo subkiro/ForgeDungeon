@@ -718,6 +718,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MessageRPS
   Poolable: 0
   prevInteractionState: 0
+  m_Rewards:
+  - Stat_Type: 4
+    Stat_Value: 100
+    isConstant: 0
   m_CloseButton: {fileID: 8719486630876042431}
   m_ContentGroup: {fileID: 2013354762927149190}
   CenterDeckRect_player: {fileID: 6175552876479781933}

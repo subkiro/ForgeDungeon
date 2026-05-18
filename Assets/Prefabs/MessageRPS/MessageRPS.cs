@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
@@ -9,6 +10,7 @@ using Random = UnityEngine.Random;
 
 public class MessageRPS : PopUp
 {
+    [SerializeField] List<Stats> m_Rewards;
     [SerializeField] Button m_CloseButton;
     [SerializeField] CanvasGroup m_ContentGroup;
     [SerializeField] RectTransform CenterDeckRect_player;
@@ -49,7 +51,7 @@ public class MessageRPS : PopUp
     var allCards = new List<CardsData>();
     allCards.AddRange(PlayerCardsData);
     allCards.AddRange(OpponentCardsData);
-    GameManager.Instance.SoundManager.PlayGivenSound("Sweesh", volume: 0.1f,pitch:2);
+    GameManager.Instance.SoundManager.PlayGivenSound("Sweesh", volume: 0.1f,pitch:1);
 
     var tasks = new List<UniTask>();
         tasks.Add(m_ContentGroup.DOFade(1,.2f).From(0).ToUniTask());
@@ -434,7 +436,7 @@ public class MessageRPS : PopUp
 
         Reward.Instance.AnimateSpread(RewardType.COIN, Vector2.zero, StatManager.Instance.CoinStatCell.StatIcon.transform, 10, () =>
                 {
-                    GameManager.Instance.Player.Coins.Value += 10;
+                    GameManager.Instance.Player.Coins.Value += (int) m_Rewards.FirstOrDefault(x=>x.Stat_Type== StatType.Coin).Stat_Value;
                 });
     }
     void ShowBottomMessage(bool show, string message = "", int loops = -1)

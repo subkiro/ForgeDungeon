@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MessageForgePreperation : PopUp
 {
-
+    [SerializeField] Button m_OverlayButton;
     [SerializeField] CanvasGroup m_ContentGroup;
     [SerializeField] CanvasGroup m_InventoryItemGroup;
     List<ItemCellView> m_InvetoryItemCells;
@@ -22,6 +22,7 @@ public class MessageForgePreperation : PopUp
     [SerializeField] Button m_ButtonForge;
     public void SetData()
     {
+        m_OverlayButton.onClick.AddListener(()=>_=OnClose());
         m_ButtonClear.onClick.AddListener(OnCleanUp);
         m_ButtonForge.onClick.AddListener(OnForge);
         InitItems();
