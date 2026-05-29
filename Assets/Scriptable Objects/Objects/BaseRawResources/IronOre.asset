@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb661782bdd0410697dc793a9be29fd, type: 3}
+  m_Name: IronOre
+  m_EditorClassIdentifier: Assembly-CSharp::RawResourceSO
+  ID: IronOre
+  DisplayName: Iron Ore
+  Descripton: I should smelt this to make it useable
+  Icon: {fileID: -5392625257635239999, guid: 84507ecbe59d2484dbf70abf947d1de4, type: 3}
+  BaseSellPrice: 8
+  Categories:
+  - Ore
+  - Iron
+  Rarity: 0
+  BasicStats: []
+  Cost:
+    Stat_Type: 4
+    Stat_Value: 0
+    isConstant: 0
+  BaseRarity: 0
+  BuyPrice: 10

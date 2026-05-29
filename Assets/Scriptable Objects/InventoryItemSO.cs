@@ -9,8 +9,13 @@ public abstract class InventoryItemSO : ScriptableObject
 {
     public string ID;
     public string DisplayName;
-     public string Descripton;
+    public string Descripton;
     public Sprite Icon;
+    public double BaseSellPrice;
+    public List<string> Categories;
+
+    //Reorganize/Remove
+    [Header("IGNORE RARITY, BASE STATS, COST")]
     [SerializeField] Rarity Rarity;
     public List<Stats> BasicStats;
 
@@ -26,17 +31,4 @@ public abstract class InventoryItemSO : ScriptableObject
 }
 
 
-[Serializable]
-public struct RarityData
-{
-    public Rarity Rarity;
-    public Color color;
-}
-public enum Rarity
-{
-Common,
-Uncommon,
-Rare,
-Epic,
-Legendary
-}
+

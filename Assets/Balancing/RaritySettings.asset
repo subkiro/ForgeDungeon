@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec60b3c8728a13142be617f22e3a238a, type: 3}
+  m_Name: RaritySettings
+  m_EditorClassIdentifier: Assembly-CSharp::RaritySettingsSO
+  RarityParameters:
+  - Rarity: 0
+    color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+    QualityThreshold: 0
+  - Rarity: 1
+    color: {r: 0.8867924, g: 0.54372656, b: 0.31372374, a: 1}
+    QualityThreshold: 100
+  - Rarity: 2
+    color: {r: 0.42395112, g: 0.9254902, b: 0.23137255, a: 1}
+    QualityThreshold: 5000
+  - Rarity: 3
+    color: {r: 0.9811321, g: 0.34709862, b: 0.81137115, a: 1}
+    QualityThreshold: 200000
+  - Rarity: 4
+    color: {r: 1, g: 0.95924073, b: 0.2216981, a: 1}
+    QualityThreshold: 1000000
